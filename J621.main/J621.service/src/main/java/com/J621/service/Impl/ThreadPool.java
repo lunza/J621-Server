@@ -82,7 +82,7 @@ public class ThreadPool {
 		ExecutorService taskExecutor = Executors.newCachedThreadPool();
 		int end = tdData.size();
 		List<String> hdUrl = new ArrayList<String>();
-		List<FutureTask<String>> futureTasks = new ArrayList<FutureTask<String>>();
+		List<FutureTask> futureTasks = new ArrayList<FutureTask>();
 		List<String> data = new ArrayList<String>();
 		List<List<String>> li = new ArrayList<List<String>>();
 		try {
@@ -107,24 +107,25 @@ public class ThreadPool {
 				}
 				// 生成新线程
 				for (int i = 0; i <= threadPoolSize - 1; i++) {
-					
-					FutureTask<String> futureTask = new FutureTask<String>(new URLAnalyzer(li.get(i)));
+
+					FutureTask futureTask = new FutureTask(new URLAnalyzer(li.get(i)));
 					futureTasks.add(futureTask);
-					System.out.println(futureTasks.size());
+
 					taskExecutor.submit(futureTask);
 					// 需要加延迟5到10毫秒，否则易发生数据库死锁
 					Thread.sleep(10);
 				}
 			} else {
-				FutureTask<String> futureTask = new FutureTask<String>(new URLAnalyzer(tdData));
+				FutureTask futureTask = new FutureTask(new URLAnalyzer(tdData));
 				futureTasks.add(futureTask);
 				taskExecutor.submit(futureTask);
 			}
-			for (FutureTask<String> futureTask : futureTasks) {
-				// futureTask.get() 得到我们想要的结果
+			for (FutureTask futureTask : futureTasks) {
 				// 该方法有一个重载get(long timeout, TimeUnit unit) 第一个参数为最大等待时间，第二个为时间的单位
-				String url = futureTask.get();
-				hdUrl.add(url);
+				List<String> url = (List<String>)futureTask.get();
+				for (String string : url) {
+					hdUrl.add(string);
+				}
 			}
 
 		} catch (Exception e) {
@@ -147,7 +148,7 @@ public class ThreadPool {
 				}
 			}
 		}
-
+		System.out.println(hdUrl.size());
 		return hdUrl;
 
 	}

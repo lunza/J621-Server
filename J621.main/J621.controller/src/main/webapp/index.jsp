@@ -15,7 +15,7 @@
 		结束页：<input type="text" name="endIndex" value="1" /> <br> 
 		关键字：<input type="text" name="key" value="cuntboy" /> <br> 
 		最低评分：<input type="text" name="minScore" value="20" /> <br>
-		本地根路径：<input type="text" name="localAddr" value="G:\\e621\\" /> <br> 
+		本地根路径：<input type="text" name="localAddr" value="D:\\e621\\" /> <br> 
 		起始文件名：<input type="text" name="startFileName" value="1" /> <br> 
 		线程：<input type="text" name="threadPoolSize" value="8" /> <br> 
 		<input type="submit" value="下载"><br>

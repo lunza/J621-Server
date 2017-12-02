@@ -252,7 +252,7 @@
   
    <select id="getMxFileName" resultType="java.lang.Integer" parameterType="java.lang.String" >
     select 
-    Max(IMAGE_COUNT)
+    IFNULL(Max(IMAGE_COUNT),0)
     from j621_image
     where KEYSES = #{key,jdbcType=VARCHAR}
   </select>
