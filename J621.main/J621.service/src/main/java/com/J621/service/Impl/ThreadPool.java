@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 
 import com.J621.vo.J621Image;
-
 
 public class ThreadPool {
 
@@ -20,14 +21,13 @@ public class ThreadPool {
 			if (tdData.size() > threadPoolSize) {
 				int startPoint;
 				int endPoint;
-				
+
 				// 生成和线程数相等数量的数据集
 				for (int i = 1; i <= threadPoolSize; i++) {
 					startPoint = i - 1;
 					endPoint = i;
 					if (endPoint != threadPoolSize) {
-						data = getDataList(tdData, end / threadPoolSize * startPoint,
-								end / threadPoolSize * endPoint);
+						data = getDataList(tdData, end / threadPoolSize * startPoint, end / threadPoolSize * endPoint);
 						li.add(data);
 						// 处理余数
 					} else {
@@ -52,7 +52,7 @@ public class ThreadPool {
 			taskExecutor.shutdown();
 			while (true) {
 				if (taskExecutor.isTerminated()) {
-					System.out.println("下载完成，本次共"+tdData.size()+"张图片");
+					System.out.println("下载完成，本次共" + tdData.size() + "张图片");
 					System.gc();
 					break;
 				}
@@ -77,5 +77,87 @@ public class ThreadPool {
 		return data;
 	}
 
+	public static List<String> getHDURLWithThreadPool(List<String> tdData, int threadPoolSize) {
+
+		ExecutorService taskExecutor = Executors.newCachedThreadPool();
+		int end = tdData.size();
+		List<String> hdUrl = new ArrayList<String>();
+		List<FutureTask<String>> futureTasks = new ArrayList<FutureTask<String>>();
+		List<String> data = new ArrayList<String>();
+		List<List<String>> li = new ArrayList<List<String>>();
+		try {
+			// 数据集拆分
+			if (tdData.size() > threadPoolSize) {
+				int startPoint;
+				int endPoint;
+
+				// 生成和线程数相等数量的数据集
+				for (int i = 1; i <= threadPoolSize; i++) {
+					startPoint = i - 1;
+					endPoint = i;
+					if (endPoint != threadPoolSize) {
+						data = getURLDataList(tdData, end / threadPoolSize * startPoint,
+								end / threadPoolSize * endPoint);
+						li.add(data);
+						// 处理余数
+					} else {
+						data = getURLDataList(tdData, end / threadPoolSize * startPoint, end);
+						li.add(data);
+					}
+				}
+				// 生成新线程
+				for (int i = 0; i <= threadPoolSize - 1; i++) {
+					
+					FutureTask<String> futureTask = new FutureTask<String>(new URLAnalyzer(li.get(i)));
+					futureTasks.add(futureTask);
+					System.out.println(futureTasks.size());
+					taskExecutor.submit(futureTask);
+					// 需要加延迟5到10毫秒，否则易发生数据库死锁
+					Thread.sleep(10);
+				}
+			} else {
+				FutureTask<String> futureTask = new FutureTask<String>(new URLAnalyzer(tdData));
+				futureTasks.add(futureTask);
+				taskExecutor.submit(futureTask);
+			}
+			for (FutureTask<String> futureTask : futureTasks) {
+				// futureTask.get() 得到我们想要的结果
+				// 该方法有一个重载get(long timeout, TimeUnit unit) 第一个参数为最大等待时间，第二个为时间的单位
+				String url = futureTask.get();
+				hdUrl.add(url);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// 关闭线程池
+			taskExecutor.shutdown();
+			while (true) {
+				if (taskExecutor.isTerminated()) {
+					System.out.println("地址解析完成，本次共" + tdData.size() + "张图片");
+					System.gc();
+					break;
+				}
+				try {
+					Thread.sleep(1000);
+					return hdUrl;
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return hdUrl;
+
+	}
+
+	private static List<String> getURLDataList(List<String> tdData, int start, int end) {
+		List<String> data = new ArrayList<String>();
+		for (int i = start; i < end; i++) {
+			data.add(tdData.get(i));
+		}
+		return data;
+	}
 
 }

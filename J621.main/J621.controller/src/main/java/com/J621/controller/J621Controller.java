@@ -43,7 +43,8 @@ public class J621Controller {
 		System.err.println("页码信息分析完毕,开始分析图片详细地址");
 		List<String> SimpleImgUrlList = dlService.getSimpleImgUrlList(indexUrlList, min_Score);
 		System.err.println("详细地址分析完毕,开始分析图片静态地址");
-		List<String> HDImgUrlList = dlService.getHDImgUrlList(SimpleImgUrlList, key);
+		//List<String> HDImgUrlList = dlService.getHDImgUrlList(SimpleImgUrlList, key);
+		List<String> HDImgUrlList = ThreadPool.getHDURLWithThreadPool(SimpleImgUrlList, thread_Pool_Size);
 		System.err.println("静态地址分析完毕,开始下载图片");
 		List<J621Image> li = dlService.downloadPic(HDImgUrlList, localAddr, key, start_File_Name);
 		ThreadPool.getFileWithThreadPool(li,thread_Pool_Size);
