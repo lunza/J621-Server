@@ -13,7 +13,7 @@ public interface DownloadService {
 
 	public List<String> getHDImgUrlList(List<String> simpleImgUrlList, String kEY) throws IOException;
 	
-	public List<J621Image> downloadPic(List<String> hDImgUrlList, String lOCAL_ADDR, String kEY, int startFileName);
+	public List<J621Image> downloadPic(List<String> hDImgUrlList, String lOCAL_ADDR, String kEY);
 
 	public void saveImg(List<J621Image> li);
 

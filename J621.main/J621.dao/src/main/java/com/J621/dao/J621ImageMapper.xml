@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.J621.dao.J621ImageMapper" >
-  <resultMap id="BaseResultMap" type="com.j621.vo.J621Image" >
+  <resultMap id="BaseResultMap" type="com.J621.vo.J621Image" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <id column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
     <result column="URL" property="url" jdbcType="VARCHAR" />
@@ -75,13 +75,13 @@
     ID, CREATE_DATE, URL, FILE_PATH, IMAGE_TYPE, SCORE, KEYSES, IMAGE_COUNT, CREATE_DAY, 
     USER_ID
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.j621.vo.J621ImageExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.J621.vo.J621ImageExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from j621_image
+    from J621_image
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -89,26 +89,26 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.j621.vo.J621ImageKey" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.J621.vo.J621ImageKey" >
     select 
     <include refid="Base_Column_List" />
-    from j621_image
+    from J621_image
     where ID = #{id,jdbcType=VARCHAR}
       and CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.j621.vo.J621ImageKey" >
-    delete from j621_image
+  <delete id="deleteByPrimaryKey" parameterType="com.J621.vo.J621ImageKey" >
+    delete from J621_image
     where ID = #{id,jdbcType=VARCHAR}
       and CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
   </delete>
-  <delete id="deleteByExample" parameterType="com.j621.vo.J621ImageExample" >
-    delete from j621_image
+  <delete id="deleteByExample" parameterType="com.J621.vo.J621ImageExample" >
+    delete from J621_image
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.j621.vo.J621Image" >
-    insert into j621_image (ID, CREATE_DATE, URL, 
+  <insert id="insert" parameterType="com.J621.vo.J621Image" >
+    insert into J621_image (ID, CREATE_DATE, URL, 
       FILE_PATH, IMAGE_TYPE, SCORE, 
       KEYSES, IMAGE_COUNT, CREATE_DAY, 
       USER_ID)
@@ -117,8 +117,8 @@
       #{keyses,jdbcType=VARCHAR}, #{imageCount,jdbcType=INTEGER}, #{createDay,jdbcType=VARCHAR}, 
       #{userId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.j621.vo.J621Image" >
-    insert into j621_image
+  <insert id="insertSelective" parameterType="com.J621.vo.J621Image" >
+    insert into J621_image
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
@@ -184,14 +184,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.j621.vo.J621ImageExample" resultType="java.lang.Integer" >
-    select count(*) from j621_image
+  <select id="countByExample" parameterType="com.J621.vo.J621ImageExample" resultType="java.lang.Integer" >
+    select count(*) from J621_image
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update j621_image
+    update J621_image
     <set >
       <if test="record.id != null" >
         ID = #{record.id,jdbcType=VARCHAR},
@@ -229,7 +229,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update j621_image
+    update J621_image
     set ID = #{record.id,jdbcType=VARCHAR},
       CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
       URL = #{record.url,jdbcType=VARCHAR},
@@ -244,8 +244,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.j621.vo.J621Image" >
-    update j621_image
+  <update id="updateByPrimaryKeySelective" parameterType="com.J621.vo.J621Image" >
+    update J621_image
     <set >
       <if test="url != null" >
         URL = #{url,jdbcType=VARCHAR},
@@ -275,8 +275,8 @@
     where ID = #{id,jdbcType=VARCHAR}
       and CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.j621.vo.J621Image" >
-    update j621_image
+  <update id="updateByPrimaryKey" parameterType="com.J621.vo.J621Image" >
+    update J621_image
     set URL = #{url,jdbcType=VARCHAR},
       FILE_PATH = #{filePath,jdbcType=VARCHAR},
       IMAGE_TYPE = #{imageType,jdbcType=VARCHAR},

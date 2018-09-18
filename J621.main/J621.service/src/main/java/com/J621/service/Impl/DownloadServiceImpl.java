@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.J621.dao.J621ImageMapper;
 import com.J621.service.DownloadService;
 import com.J621.utils.IDUtil;
+import com.J621.utils.MD5Util;
 import com.J621.vo.J621Image;
 
 @Service
@@ -103,7 +104,7 @@ public class DownloadServiceImpl implements DownloadService {
 	}
 
 	@Override
-	public List<J621Image> downloadPic(List<String> hDImgUrlList, String lOCAL_ADDR, String kEY, int startFileName) {
+	public List<J621Image> downloadPic(List<String> hDImgUrlList, String lOCAL_ADDR, String kEY) {
 
 		Map<String, J621Image> imageMap = mapper.getAllImagesByKey(kEY);
 
@@ -132,12 +133,12 @@ public class DownloadServiceImpl implements DownloadService {
 
 			filePath = savePath + count + "." + temp[0].substring(temp[0].length() - 3, temp[0].length());
 			image.setId(IDUtil.getID());
-			image.setFilePath(savePath);
+			image.setFilePath(lOCAL_ADDR);
 			image.setImageType("." + temp[0].substring(temp[0].length() - 3, temp[0].length()));
 			image.setImageCount(count);
 			image.setUrl(temp[0]);
 			image.setScore(temp[1]);
-			image.setKeyses(kEY);
+			image.setKeyses(MD5Util.string2MD5(kEY));
 			image.setCreateDate(new Date());
 			image.setCreateDay(sdf.format(new Date()));
 
