@@ -15,7 +15,7 @@ public interface DownloadService {
 	
 	public List<J621Image> downloadPic(List<String> hDImgUrlList, String lOCAL_ADDR, String kEY);
 
-	public void saveImg(List<J621Image> li);
+	public void saveImg(List<J621Image> li,String localAddr);
 
 
 }

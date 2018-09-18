@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.J621.dao.J621ImageMapper;
 import com.J621.service.DownloadService;
+import com.J621.utils.FinalStrings;
 import com.J621.utils.IDUtil;
 import com.J621.utils.MD5Util;
 import com.J621.vo.J621Image;
@@ -106,9 +107,10 @@ public class DownloadServiceImpl implements DownloadService {
 	@Override
 	public List<J621Image> downloadPic(List<String> hDImgUrlList, String lOCAL_ADDR, String kEY) {
 
-		Map<String, J621Image> imageMap = mapper.getAllImagesByKey(kEY);
+		String mKey = MD5Util.encrypt(kEY);
+		Map<String, J621Image> imageMap = mapper.getAllImagesByKey(mKey);
 
-		int MaxFileName = mapper.getMxFileName(kEY);
+		int MaxFileName = mapper.getMxFileName(mKey);
 
 		List<J621Image> li = new ArrayList<J621Image>();
 		int count = 1;
@@ -125,7 +127,8 @@ public class DownloadServiceImpl implements DownloadService {
 
 		for (String urlLocation : hDImgUrlList) {
 			String[] temp = urlLocation.split("~");
-			if (imageMap.containsKey(temp[0])) {
+			String url = temp[0].substring(FinalStrings.E621_STATIC.length(), temp[0].length());
+			if (imageMap.containsKey(url)) {
 				continue;
 			}
 
@@ -133,14 +136,15 @@ public class DownloadServiceImpl implements DownloadService {
 
 			filePath = savePath + count + "." + temp[0].substring(temp[0].length() - 3, temp[0].length());
 			image.setId(IDUtil.getID());
-			image.setFilePath(lOCAL_ADDR);
+			image.setFilePath(savePath);
 			image.setImageType("." + temp[0].substring(temp[0].length() - 3, temp[0].length()));
 			image.setImageCount(count);
 			image.setUrl(temp[0]);
 			image.setScore(temp[1]);
-			image.setKeyses(MD5Util.string2MD5(kEY));
+			image.setKeyses(mKey);
 			image.setCreateDate(new Date());
 			image.setCreateDay(sdf.format(new Date()));
+			image.setSalt(FinalStrings.SALT);
 
 			System.out.println("正在扫描第" + count + "张图片,地址为" + filePath);
 			li.add(image);
@@ -154,8 +158,10 @@ public class DownloadServiceImpl implements DownloadService {
 	}
 
 	@Override
-	public void saveImg(List<J621Image> li) {
+	public void saveImg(List<J621Image> li,String localAddr) {
 		for (J621Image j621Image : li) {
+			j621Image.setUrl(j621Image.getUrl().substring(FinalStrings.E621_STATIC.length(), j621Image.getUrl().length()));
+			j621Image.setFilePath(localAddr);
 			mapper.insert(j621Image);
 		}
 		System.out.println("保存完毕");

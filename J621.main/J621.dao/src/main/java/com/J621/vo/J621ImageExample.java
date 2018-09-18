@@ -1,5 +1,6 @@
 package com.J621.vo;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -782,6 +783,66 @@ public class J621ImageExample {
 
         public Criteria andUserIdNotBetween(String value1, String value2) {
             addCriterion("USER_ID not between", value1, value2, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltIsNull() {
+            addCriterion("SALT is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltIsNotNull() {
+            addCriterion("SALT is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltEqualTo(BigDecimal value) {
+            addCriterion("SALT =", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltNotEqualTo(BigDecimal value) {
+            addCriterion("SALT <>", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltGreaterThan(BigDecimal value) {
+            addCriterion("SALT >", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("SALT >=", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltLessThan(BigDecimal value) {
+            addCriterion("SALT <", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("SALT <=", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltIn(List<BigDecimal> values) {
+            addCriterion("SALT in", values, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltNotIn(List<BigDecimal> values) {
+            addCriterion("SALT not in", values, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("SALT between", value1, value2, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("SALT not between", value1, value2, "salt");
             return (Criteria) this;
         }
     }

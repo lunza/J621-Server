@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.J621.service.DownloadService;
 import com.J621.service.UserService;
@@ -30,7 +31,8 @@ public class J621Controller {
 	private UserService userService;
 
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
-	public void downloadImages(@RequestParam(value = "endIndex", required = true) String endIndex,
+	@ResponseBody
+	public String downloadImages(@RequestParam(value = "endIndex", required = true) String endIndex,
 			@RequestParam(value = "startIndex", required = true) String startIndex,
 			@RequestParam(value = "key", required = true) String key,
 			@RequestParam(value = "minScore", required = true) String minScore,
@@ -53,7 +55,9 @@ public class J621Controller {
 		System.err.println("静态地址分析完毕,开始下载图片");
 		List<J621Image> li = dlService.downloadPic(HDImgUrlList, localAddr, key);
 		ThreadPool.getFileWithThreadPool(li, thread_Pool_Size);
-		dlService.saveImg(li);
+		dlService.saveImg(li,localAddr);
+		
+		return "下载完成";
 
 	}
 

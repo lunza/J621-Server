@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.J621.utils.FinalStrings;
 import com.J621.vo.J621Image;
 
 public class PicDownload implements Runnable {
