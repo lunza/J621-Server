@@ -20,6 +20,7 @@
 		线程：<input type="text" name="threadPoolSize" value="8" /> <br> 
 		<input type="submit" value="下载"><br>
 	</form>
-	<br>
+	
+	
 </body>
 </html>
