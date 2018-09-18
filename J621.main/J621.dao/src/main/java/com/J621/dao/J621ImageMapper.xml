@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.J621.dao.J621ImageMapper" >
-  <resultMap id="BaseResultMap" type="com.j621.vo.J621Image" >
+  <resultMap id="BaseResultMap" type="com.J621.vo.J621Image" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
-    <id column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
     <result column="URL" property="url" jdbcType="VARCHAR" />
     <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
     <result column="IMAGE_TYPE" property="imageType" jdbcType="VARCHAR" />
     <result column="SCORE" property="score" jdbcType="VARCHAR" />
     <result column="KEYSES" property="keyses" jdbcType="VARCHAR" />
     <result column="IMAGE_COUNT" property="imageCount" jdbcType="INTEGER" />
-    <result column="CREATE_DAY" property="createDay" jdbcType="VARCHAR" />
-    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -72,10 +69,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    ID, CREATE_DATE, URL, FILE_PATH, IMAGE_TYPE, SCORE, KEYSES, IMAGE_COUNT, CREATE_DAY, 
-    USER_ID
+    ID, URL, FILE_PATH, IMAGE_TYPE, SCORE, KEYSES, IMAGE_COUNT
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.j621.vo.J621ImageExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.J621.vo.J621ImageExample" >
     select
     <if test="distinct" >
       distinct
@@ -89,42 +85,35 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.j621.vo.J621ImageKey" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from j621_image
     where ID = #{id,jdbcType=VARCHAR}
-      and CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.j621.vo.J621ImageKey" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from j621_image
     where ID = #{id,jdbcType=VARCHAR}
-      and CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
   </delete>
-  <delete id="deleteByExample" parameterType="com.j621.vo.J621ImageExample" >
+  <delete id="deleteByExample" parameterType="com.J621.vo.J621ImageExample" >
     delete from j621_image
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.j621.vo.J621Image" >
-    insert into j621_image (ID, CREATE_DATE, URL, 
-      FILE_PATH, IMAGE_TYPE, SCORE, 
-      KEYSES, IMAGE_COUNT, CREATE_DAY, 
-      USER_ID)
-    values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{url,jdbcType=VARCHAR}, 
-      #{filePath,jdbcType=VARCHAR}, #{imageType,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, 
-      #{keyses,jdbcType=VARCHAR}, #{imageCount,jdbcType=INTEGER}, #{createDay,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.J621.vo.J621Image" >
+    insert into j621_image (ID, URL, FILE_PATH, 
+      IMAGE_TYPE, SCORE, KEYSES, 
+      IMAGE_COUNT)
+    values (#{id,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, 
+      #{imageType,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, #{keyses,jdbcType=VARCHAR}, 
+      #{imageCount,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.j621.vo.J621Image" >
+  <insert id="insertSelective" parameterType="com.J621.vo.J621Image" >
     insert into j621_image
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
-      </if>
-      <if test="createDate != null" >
-        CREATE_DATE,
       </if>
       <if test="url != null" >
         URL,
@@ -144,19 +133,10 @@
       <if test="imageCount != null" >
         IMAGE_COUNT,
       </if>
-      <if test="createDay != null" >
-        CREATE_DAY,
-      </if>
-      <if test="userId != null" >
-        USER_ID,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null" >
-        #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="url != null" >
         #{url,jdbcType=VARCHAR},
@@ -176,15 +156,9 @@
       <if test="imageCount != null" >
         #{imageCount,jdbcType=INTEGER},
       </if>
-      <if test="createDay != null" >
-        #{createDay,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=VARCHAR},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.j621.vo.J621ImageExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.J621.vo.J621ImageExample" resultType="java.lang.Integer" >
     select count(*) from j621_image
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -195,9 +169,6 @@
     <set >
       <if test="record.id != null" >
         ID = #{record.id,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createDate != null" >
-        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.url != null" >
         URL = #{record.url,jdbcType=VARCHAR},
@@ -217,12 +188,6 @@
       <if test="record.imageCount != null" >
         IMAGE_COUNT = #{record.imageCount,jdbcType=INTEGER},
       </if>
-      <if test="record.createDay != null" >
-        CREATE_DAY = #{record.createDay,jdbcType=VARCHAR},
-      </if>
-      <if test="record.userId != null" >
-        USER_ID = #{record.userId,jdbcType=VARCHAR},
-      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -231,20 +196,17 @@
   <update id="updateByExample" parameterType="map" >
     update j621_image
     set ID = #{record.id,jdbcType=VARCHAR},
-      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
       URL = #{record.url,jdbcType=VARCHAR},
       FILE_PATH = #{record.filePath,jdbcType=VARCHAR},
       IMAGE_TYPE = #{record.imageType,jdbcType=VARCHAR},
       SCORE = #{record.score,jdbcType=VARCHAR},
       KEYSES = #{record.keyses,jdbcType=VARCHAR},
-      IMAGE_COUNT = #{record.imageCount,jdbcType=INTEGER},
-      CREATE_DAY = #{record.createDay,jdbcType=VARCHAR},
-      USER_ID = #{record.userId,jdbcType=VARCHAR}
+      IMAGE_COUNT = #{record.imageCount,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.j621.vo.J621Image" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.J621.vo.J621Image" >
     update j621_image
     <set >
       <if test="url != null" >
@@ -265,41 +227,33 @@
       <if test="imageCount != null" >
         IMAGE_COUNT = #{imageCount,jdbcType=INTEGER},
       </if>
-      <if test="createDay != null" >
-        CREATE_DAY = #{createDay,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null" >
-        USER_ID = #{userId,jdbcType=VARCHAR},
-      </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}
-      and CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.j621.vo.J621Image" >
+  <update id="updateByPrimaryKey" parameterType="com.J621.vo.J621Image" >
     update j621_image
     set URL = #{url,jdbcType=VARCHAR},
       FILE_PATH = #{filePath,jdbcType=VARCHAR},
       IMAGE_TYPE = #{imageType,jdbcType=VARCHAR},
       SCORE = #{score,jdbcType=VARCHAR},
       KEYSES = #{keyses,jdbcType=VARCHAR},
-      IMAGE_COUNT = #{imageCount,jdbcType=INTEGER},
-      CREATE_DAY = #{createDay,jdbcType=VARCHAR},
-      USER_ID = #{userId,jdbcType=VARCHAR}
+      IMAGE_COUNT = #{imageCount,jdbcType=INTEGER}
     where ID = #{id,jdbcType=VARCHAR}
-      and CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
   </update>
   
-  <select id="getAllImagesByKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  
+
+<select id="getAllImagesByKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from J621_image
+    from j621_image
     where KEYSES = #{key,jdbcType=VARCHAR}
   </select>
   
    <select id="getMxFileName" resultType="java.lang.Integer" parameterType="java.lang.String" >
     select 
     IFNULL(Max(IMAGE_COUNT),0)
-    from J621_image
+    from j621_image
     where KEYSES = #{key,jdbcType=VARCHAR}
   </select>
 </mapper>
