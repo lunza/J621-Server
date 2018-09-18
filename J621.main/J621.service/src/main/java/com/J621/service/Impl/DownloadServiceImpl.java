@@ -2,7 +2,9 @@ package com.J621.service.Impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -16,10 +18,13 @@ import org.springframework.stereotype.Service;
 
 import com.J621.dao.J621ImageMapper;
 import com.J621.service.DownloadService;
+import com.J621.utils.IDUtil;
 import com.J621.vo.J621Image;
 
 @Service
 public class DownloadServiceImpl implements DownloadService {
+	
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	@Autowired
 	private J621ImageMapper mapper;
@@ -126,13 +131,15 @@ public class DownloadServiceImpl implements DownloadService {
 			J621Image image = new J621Image();
 
 			filePath = savePath + count + "." + temp[0].substring(temp[0].length() - 3, temp[0].length());
-			image.setId(getID());
+			image.setId(IDUtil.getID());
 			image.setFilePath(savePath);
 			image.setImageType("." + temp[0].substring(temp[0].length() - 3, temp[0].length()));
 			image.setImageCount(count);
 			image.setUrl(temp[0]);
 			image.setScore(temp[1]);
 			image.setKeyses(kEY);
+			image.setCreateDate(new Date());
+			image.setCreateDay(sdf.format(new Date()));
 
 			System.out.println("正在扫描第" + count + "张图片,地址为" + filePath);
 			li.add(image);
@@ -153,12 +160,5 @@ public class DownloadServiceImpl implements DownloadService {
 		System.out.println("保存完毕");
 	}
 
-	public static String getID() {
-
-		UUID uuid = UUID.randomUUID();
-		String str = uuid.toString();
-		String uuidStr = str.replace("-", "");
-		return uuidStr;
-	}
-
+	
 }
