@@ -1,8 +1,6 @@
 package com.J621.vo;
 
-public class J621Image {
-    private String id;
-
+public class J621Image extends J621ImageKey {
     private String url;
 
     private String filePath;
@@ -15,13 +13,9 @@ public class J621Image {
 
     private Integer imageCount;
 
-    public String getId() {
-        return id;
-    }
+    private String createDay;
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
+    private String userId;
 
     public String getUrl() {
         return url;
@@ -69,5 +63,21 @@ public class J621Image {
 
     public void setImageCount(Integer imageCount) {
         this.imageCount = imageCount;
+    }
+
+    public String getCreateDay() {
+        return createDay;
+    }
+
+    public void setCreateDay(String createDay) {
+        this.createDay = createDay == null ? null : createDay.trim();
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 }

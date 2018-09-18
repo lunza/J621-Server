@@ -1,6 +1,7 @@
 package com.J621.vo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class J621ImageExample {
@@ -171,6 +172,66 @@ public class J621ImageExample {
 
         public Criteria andIdNotBetween(String value1, String value2) {
             addCriterion("ID not between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDateIsNull() {
+            addCriterion("CREATE_DATE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDateIsNotNull() {
+            addCriterion("CREATE_DATE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDateEqualTo(Date value) {
+            addCriterion("CREATE_DATE =", value, "createDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDateNotEqualTo(Date value) {
+            addCriterion("CREATE_DATE <>", value, "createDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDateGreaterThan(Date value) {
+            addCriterion("CREATE_DATE >", value, "createDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("CREATE_DATE >=", value, "createDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDateLessThan(Date value) {
+            addCriterion("CREATE_DATE <", value, "createDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDateLessThanOrEqualTo(Date value) {
+            addCriterion("CREATE_DATE <=", value, "createDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDateIn(List<Date> values) {
+            addCriterion("CREATE_DATE in", values, "createDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDateNotIn(List<Date> values) {
+            addCriterion("CREATE_DATE not in", values, "createDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDateBetween(Date value1, Date value2) {
+            addCriterion("CREATE_DATE between", value1, value2, "createDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDateNotBetween(Date value1, Date value2) {
+            addCriterion("CREATE_DATE not between", value1, value2, "createDate");
             return (Criteria) this;
         }
 
@@ -581,6 +642,146 @@ public class J621ImageExample {
 
         public Criteria andImageCountNotBetween(Integer value1, Integer value2) {
             addCriterion("IMAGE_COUNT not between", value1, value2, "imageCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDayIsNull() {
+            addCriterion("CREATE_DAY is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDayIsNotNull() {
+            addCriterion("CREATE_DAY is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDayEqualTo(String value) {
+            addCriterion("CREATE_DAY =", value, "createDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDayNotEqualTo(String value) {
+            addCriterion("CREATE_DAY <>", value, "createDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDayGreaterThan(String value) {
+            addCriterion("CREATE_DAY >", value, "createDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDayGreaterThanOrEqualTo(String value) {
+            addCriterion("CREATE_DAY >=", value, "createDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDayLessThan(String value) {
+            addCriterion("CREATE_DAY <", value, "createDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDayLessThanOrEqualTo(String value) {
+            addCriterion("CREATE_DAY <=", value, "createDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDayLike(String value) {
+            addCriterion("CREATE_DAY like", value, "createDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDayNotLike(String value) {
+            addCriterion("CREATE_DAY not like", value, "createDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDayIn(List<String> values) {
+            addCriterion("CREATE_DAY in", values, "createDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDayNotIn(List<String> values) {
+            addCriterion("CREATE_DAY not in", values, "createDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDayBetween(String value1, String value2) {
+            addCriterion("CREATE_DAY between", value1, value2, "createDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateDayNotBetween(String value1, String value2) {
+            addCriterion("CREATE_DAY not between", value1, value2, "createDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdIsNull() {
+            addCriterion("USER_ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdIsNotNull() {
+            addCriterion("USER_ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdEqualTo(String value) {
+            addCriterion("USER_ID =", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdNotEqualTo(String value) {
+            addCriterion("USER_ID <>", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdGreaterThan(String value) {
+            addCriterion("USER_ID >", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdGreaterThanOrEqualTo(String value) {
+            addCriterion("USER_ID >=", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdLessThan(String value) {
+            addCriterion("USER_ID <", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdLessThanOrEqualTo(String value) {
+            addCriterion("USER_ID <=", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdLike(String value) {
+            addCriterion("USER_ID like", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdNotLike(String value) {
+            addCriterion("USER_ID not like", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdIn(List<String> values) {
+            addCriterion("USER_ID in", values, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdNotIn(List<String> values) {
+            addCriterion("USER_ID not in", values, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdBetween(String value1, String value2) {
+            addCriterion("USER_ID between", value1, value2, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdNotBetween(String value1, String value2) {
+            addCriterion("USER_ID not between", value1, value2, "userId");
             return (Criteria) this;
         }
     }
