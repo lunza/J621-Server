@@ -9,7 +9,7 @@
 <title>下载</title>
 </head>
 <body>
-	<form  method="get" action="<%=request.getContextPath()%>/J621/download">
+	<form  method="get" action="<%=request.getContextPath()%>/J621/service/download">
 
 		起始页：<input type="text" name="startIndex" value="1" /><br> 
 		结束页：<input type="text" name="endIndex" value="1" /> <br> 
@@ -19,6 +19,10 @@
 		线程：<input type="text" name="threadPoolSize" value="8" /> <br> 
 		<input type="submit" value="下载"><br>
 	</form>
+	
+	<INPUT name="pclog" type="button" value="注册" onClick="location.href='resign.jsp'">
+	<br>
+	<INPUT name="pclog" type="button" value="登录" onClick="location.href='login.jsp'">
 	<br>
 </body>
 </html>

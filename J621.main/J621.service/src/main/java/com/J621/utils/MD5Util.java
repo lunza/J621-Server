@@ -21,12 +21,12 @@ public class MD5Util {
 
 	}
 	
-	public static String decrypt(String mkey) {
+	public static String decrypt(String mkey,String salt) {
 		String result = "";
 		String[] temp = mkey.split(",");
 		char[] ch = new char[temp.length];
 		for (int a = 0;a<temp.length;a++) {
-			BigDecimal b1 =new BigDecimal( temp[a]).divide(FinalStrings.SALT);
+			BigDecimal b1 =new BigDecimal( temp[a]).divide(new BigDecimal(salt));
 			
 			int b = b1.intValue();
 			ch[a] = (char)b;
@@ -37,9 +37,9 @@ public class MD5Util {
 	}
 
 	public static void main(String[] args) {
-		String temp = encrypt("cuntboy_yiff");
+		String temp = encrypt(" ");
 			System.out.println(temp);
-			String temp2 = decrypt("391.0,353.6,329.8,377.4,387.6,397.8,374.0,343.4");
+			String temp2 = decrypt(temp,FinalStrings.SALT.toString());
 			System.out.println(temp2);
 		
 	}

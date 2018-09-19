@@ -1,6 +1,5 @@
 package com.J621.vo;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -796,52 +795,62 @@ public class J621ImageExample {
             return (Criteria) this;
         }
 
-        public Criteria andSaltEqualTo(BigDecimal value) {
+        public Criteria andSaltEqualTo(String value) {
             addCriterion("SALT =", value, "salt");
             return (Criteria) this;
         }
 
-        public Criteria andSaltNotEqualTo(BigDecimal value) {
+        public Criteria andSaltNotEqualTo(String value) {
             addCriterion("SALT <>", value, "salt");
             return (Criteria) this;
         }
 
-        public Criteria andSaltGreaterThan(BigDecimal value) {
+        public Criteria andSaltGreaterThan(String value) {
             addCriterion("SALT >", value, "salt");
             return (Criteria) this;
         }
 
-        public Criteria andSaltGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andSaltGreaterThanOrEqualTo(String value) {
             addCriterion("SALT >=", value, "salt");
             return (Criteria) this;
         }
 
-        public Criteria andSaltLessThan(BigDecimal value) {
+        public Criteria andSaltLessThan(String value) {
             addCriterion("SALT <", value, "salt");
             return (Criteria) this;
         }
 
-        public Criteria andSaltLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andSaltLessThanOrEqualTo(String value) {
             addCriterion("SALT <=", value, "salt");
             return (Criteria) this;
         }
 
-        public Criteria andSaltIn(List<BigDecimal> values) {
+        public Criteria andSaltLike(String value) {
+            addCriterion("SALT like", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltNotLike(String value) {
+            addCriterion("SALT not like", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltIn(List<String> values) {
             addCriterion("SALT in", values, "salt");
             return (Criteria) this;
         }
 
-        public Criteria andSaltNotIn(List<BigDecimal> values) {
+        public Criteria andSaltNotIn(List<String> values) {
             addCriterion("SALT not in", values, "salt");
             return (Criteria) this;
         }
 
-        public Criteria andSaltBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andSaltBetween(String value1, String value2) {
             addCriterion("SALT between", value1, value2, "salt");
             return (Criteria) this;
         }
 
-        public Criteria andSaltNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andSaltNotBetween(String value1, String value2) {
             addCriterion("SALT not between", value1, value2, "salt");
             return (Criteria) this;
         }

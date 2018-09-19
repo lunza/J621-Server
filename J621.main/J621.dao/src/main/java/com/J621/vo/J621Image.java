@@ -1,7 +1,5 @@
 package com.J621.vo;
 
-import java.math.BigDecimal;
-
 public class J621Image extends J621ImageKey {
     private String url;
 
@@ -19,7 +17,7 @@ public class J621Image extends J621ImageKey {
 
     private String userId;
 
-    private BigDecimal salt;
+    private String salt;
 
     public String getUrl() {
         return url;
@@ -85,11 +83,11 @@ public class J621Image extends J621ImageKey {
         this.userId = userId == null ? null : userId.trim();
     }
 
-    public BigDecimal getSalt() {
+    public String getSalt() {
         return salt;
     }
 
-    public void setSalt(BigDecimal salt) {
-        this.salt = salt;
+    public void setSalt(String salt) {
+        this.salt = salt == null ? null : salt.trim();
     }
 }

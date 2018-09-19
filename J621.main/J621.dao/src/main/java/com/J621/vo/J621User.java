@@ -9,6 +9,10 @@ public class J621User {
 
     private String password;
 
+    private String salt;
+
+    private String name;
+
     private Date createDate;
 
     private String sex;
@@ -39,6 +43,22 @@ public class J621User {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt == null ? null : salt.trim();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public Date getCreateDate() {

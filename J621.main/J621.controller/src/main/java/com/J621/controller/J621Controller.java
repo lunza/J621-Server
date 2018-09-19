@@ -16,19 +16,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.J621.service.DownloadService;
 import com.J621.service.UserService;
 import com.J621.service.Impl.ThreadPool;
+import com.J621.utils.FinalStrings;
 import com.J621.utils.IDUtil;
 import com.J621.utils.IPUtil;
+import com.J621.utils.MD5Util;
 import com.J621.vo.J621Image;
 import com.J621.vo.J621User;
 
 @Controller
-@RequestMapping("/J621")
+@RequestMapping("/J621/service")
 public class J621Controller {
 
 	@Autowired
 	private DownloadService dlService;
-	@Autowired
-	private UserService userService;
+	
 
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
 	@ResponseBody
@@ -61,29 +62,6 @@ public class J621Controller {
 
 	}
 
-	@RequestMapping(value = "/resign", method = RequestMethod.GET)
-	public void resignUser(@RequestParam(value = "username", required = true) String username,
-			@RequestParam(value = "password", required = true) String password,
-			@RequestParam(value = "password2", required = true) String password2,
-			@RequestParam(value = "email", required = true) String email,
-			@RequestParam(value = "sex", required = true) String sex,
-			HttpServletRequest request) {
-		J621User user = new J621User();
-
-		user.setId(IDUtil.getID());
-		if (!password.equals(password2)) {
-			return;
-		} else {
-			user.setPassword(password);
-		}
-		user.setCreateDate(new Date());
-		user.setEmail(email);
-		user.setSex(sex);
-		String ip = IPUtil.getIpAddr(request);
-		user.setIp(ip);
-		userService.resign(user);
-	}
-	
 	
 
 }

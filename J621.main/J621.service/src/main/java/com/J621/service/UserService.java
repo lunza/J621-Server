@@ -4,6 +4,8 @@ import com.J621.vo.J621User;
 
 public interface UserService {
 	
-	public void resign(J621User user);
+	public String resign(J621User user);
+	
+	public J621User login(String userName,String password);
 
 }

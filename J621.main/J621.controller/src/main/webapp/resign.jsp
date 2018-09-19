@@ -9,11 +9,12 @@
 <title>注册</title>
 </head>
 <body>
-	<form  method="get" action="<%=request.getContextPath()%>/J621/resign">
+	<form  method="get" action="<%=request.getContextPath()%>/J621/user/resign">
 
 		用户名：<input type="text" name="username" value="admin" /><br> 
 		密码：<input type="text" name="password" value="123" /> <br> 
 		确认密码：<input type="text" name="password2" value="123" /> <br> 
+		昵称：<input type="text" name="name" value="管理员" /> <br>
 		邮箱：<input type="text" name="email" value="a1299021@163.com" /> <br>
 		性别：<input type="text" name="sex" value="男" /> <br> 
 		

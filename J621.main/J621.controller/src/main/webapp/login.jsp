@@ -7,20 +7,39 @@
 <html>
 <head>
 <title>下载</title>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+
+<script type="text/javascript">
+$(function(){
+    $('#submitBtn').click(function(){
+    	
+        $.ajax({
+            url: 'J621/user/login',
+					data : $('#myForm').serialize(),
+					type : "GET",
+					success:function(data){
+						alert("111"+data);
+					},
+					error:function(data){
+						alert("222"+data);
+					}
+
+				});
+			});
+		})
+	</script>
+
 </head>
 <body>
-	<form  method="get" action="<%=request.getContextPath()%>/J621/download">
 
-		起始页：<input type="text" name="startIndex" value="1" /><br> 
-		结束页：<input type="text" name="endIndex" value="1" /> <br> 
-		关键字：<input type="text" name="key" value="cuntboy" /> <br> 
-		最低评分：<input type="text" name="minScore" value="20" /> <br>
-		本地根路径：<input type="text" name="localAddr" value="D:\\e621\\" /> <br> 
-		起始文件名：<input type="text" name="startFileName" value="1" /> <br> 
-		线程：<input type="text" name="threadPoolSize" value="8" /> <br> 
-		<input type="submit" value="下载"><br>
+	<form id="myForm" >
+
+		用户名：<input type="text" name="username" value="admin" /><br>
+		 密码：<input type="text" name="password" value="123" /> <br> 
+			<button id = "submitBtn" type="submit" >提交1</button>
 	</form>
-	
-	
+
+
 </body>
 </html>

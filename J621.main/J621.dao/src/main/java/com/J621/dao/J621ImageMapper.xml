@@ -12,7 +12,7 @@
     <result column="IMAGE_COUNT" property="imageCount" jdbcType="INTEGER" />
     <result column="CREATE_DAY" property="createDay" jdbcType="VARCHAR" />
     <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
-    <result column="SALT" property="salt" jdbcType="DECIMAL" />
+    <result column="SALT" property="salt" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -116,7 +116,7 @@
     values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{url,jdbcType=VARCHAR}, 
       #{filePath,jdbcType=VARCHAR}, #{imageType,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, 
       #{keyses,jdbcType=VARCHAR}, #{imageCount,jdbcType=INTEGER}, #{createDay,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=VARCHAR}, #{salt,jdbcType=DECIMAL})
+      #{userId,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.J621.vo.J621Image" >
     insert into J621_image
@@ -187,7 +187,7 @@
         #{userId,jdbcType=VARCHAR},
       </if>
       <if test="salt != null" >
-        #{salt,jdbcType=DECIMAL},
+        #{salt,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -231,7 +231,7 @@
         USER_ID = #{record.userId,jdbcType=VARCHAR},
       </if>
       <if test="record.salt != null" >
-        SALT = #{record.salt,jdbcType=DECIMAL},
+        SALT = #{record.salt,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -250,7 +250,7 @@
       IMAGE_COUNT = #{record.imageCount,jdbcType=INTEGER},
       CREATE_DAY = #{record.createDay,jdbcType=VARCHAR},
       USER_ID = #{record.userId,jdbcType=VARCHAR},
-      SALT = #{record.salt,jdbcType=DECIMAL}
+      SALT = #{record.salt,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -283,7 +283,7 @@
         USER_ID = #{userId,jdbcType=VARCHAR},
       </if>
       <if test="salt != null" >
-        SALT = #{salt,jdbcType=DECIMAL},
+        SALT = #{salt,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}
@@ -299,11 +299,11 @@
       IMAGE_COUNT = #{imageCount,jdbcType=INTEGER},
       CREATE_DAY = #{createDay,jdbcType=VARCHAR},
       USER_ID = #{userId,jdbcType=VARCHAR},
-      SALT = #{salt,jdbcType=DECIMAL}
+      SALT = #{salt,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=VARCHAR}
       and CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
   </update>
-        <select id="getAllImagesByKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+      <select id="getAllImagesByKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from J621_image
@@ -316,4 +316,5 @@
     from J621_image
     where KEYSES = #{key,jdbcType=VARCHAR}
   </select>
+  
 </mapper>

@@ -144,7 +144,7 @@ public class DownloadServiceImpl implements DownloadService {
 			image.setKeyses(mKey);
 			image.setCreateDate(new Date());
 			image.setCreateDay(sdf.format(new Date()));
-			image.setSalt(FinalStrings.SALT);
+			image.setSalt(FinalStrings.SALT.toString());
 
 			System.out.println("正在扫描第" + count + "张图片,地址为" + filePath);
 			li.add(image);
