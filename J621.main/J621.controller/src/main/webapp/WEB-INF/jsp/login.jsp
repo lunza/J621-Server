@@ -26,16 +26,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				dataType : "json",
 				async : false,//同步
 				success : function(json) {
-
-					
-					if(json.result=="登录成功"){
-						alert(json.result);
-						event.preventDefault();
-						//alert("${pageContext.request.contextPath}");
-						$(location).attr('href','<%=basePath%>J621/user/dologin?userId='+json.userId);
-					}else{
-						alert(json.result);
-					}
+					alert(json.result);
+					//alert("${pageContext.request.contextPath}");
+					window.location.href= 'J621/user/dologin';
 					
 				}
 			});
@@ -51,8 +44,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<form id="myForm">
 
-		用户名：<input id = userName type="text" name="username" value="admin" /><br>
-		 密码：<input id = passWord type="text" name="password" value="123" /> <br>
+		用户名：<input type="text" name="username" value="admin" /><br>
+		 密码：<input type="text" name="password" value="123" /> <br>
 		<button id="submitBtn" >提交1</button>
 	</form>
 

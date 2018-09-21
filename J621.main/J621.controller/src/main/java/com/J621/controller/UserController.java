@@ -1,8 +1,12 @@
 package com.J621.controller;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +19,7 @@ import com.J621.service.UserService;
 import com.J621.utils.FinalStrings;
 import com.J621.utils.IDUtil;
 import com.J621.utils.IPUtil;
+import com.J621.utils.JsonUtils;
 import com.J621.utils.MD5Util;
 import com.J621.vo.J621User;
 
@@ -56,23 +61,31 @@ public class UserController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/loginCheck", method = RequestMethod.GET)
 	@ResponseBody
-	public String loginUser(@RequestParam(value = "username", required = true) String username,
-			@RequestParam(value = "password", required = true) String password) {
+	public String loginCheck(@RequestParam(value = "username", required = true) String username,
+			@RequestParam(value = "password", required = true) String password,HttpServletResponse response) throws IOException {
 				
-		J621User user = userService.login(username, password);
-		System.out.println(username);
-		if(user==null) {
-			return "无此用户";
-		}
 		
-		String pass = user.getPassword();
+	
+		String json = userService.login(username, password);
+		System.out.println(json);
+		//response.getWriter().write(json);
+		return  json;
 		
-		if(!password.equals(MD5Util.decrypt(pass,user.getSalt()))) {
-			return "密码不正确";
-		}
-		return "登陆成功";
+		
+		
+	}
+	@RequestMapping(value = "/dologin", method = RequestMethod.GET)
+	//@ResponseBody
+	public String dologin(HttpServletRequest request) throws IOException {
+		String userId = request.getParameter("userId");  
+		System.out.println(userId+"**");
+		J621User user = userService.getUserById(userId);
+		request.getSession().setAttribute("webName",user.getName());
+		request.getSession().setAttribute("userId",user.getId());
+		request.getSession().setAttribute("isOver","");
+		return "download";
 		
 	}
 	

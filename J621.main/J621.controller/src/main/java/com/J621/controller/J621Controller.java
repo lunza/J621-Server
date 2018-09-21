@@ -3,9 +3,11 @@ package com.J621.controller;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import com.J621.service.Impl.ThreadPool;
 import com.J621.utils.FinalStrings;
 import com.J621.utils.IDUtil;
 import com.J621.utils.IPUtil;
+import com.J621.utils.JsonUtils;
 import com.J621.utils.MD5Util;
 import com.J621.vo.J621Image;
 import com.J621.vo.J621User;
@@ -38,7 +41,9 @@ public class J621Controller {
 			@RequestParam(value = "key", required = true) String key,
 			@RequestParam(value = "minScore", required = true) String minScore,
 			@RequestParam(value = "localAddr", required = true) String localAddr,
-			@RequestParam(value = "threadPoolSize", required = true) String threadPoolSize) throws IOException {
+			@RequestParam(value = "threadPoolSize", required = true) String threadPoolSize,
+			@RequestParam(value = "userId", required = true) String userId,
+			HttpServletRequest request) throws IOException {
 		int start_Index = Integer.parseInt(startIndex);
 		int thread_Pool_Size = Integer.parseInt(threadPoolSize);
 		int end_Index = Integer.parseInt(endIndex);
@@ -56,12 +61,15 @@ public class J621Controller {
 		System.err.println("静态地址分析完毕,开始下载图片");
 		List<J621Image> li = dlService.downloadPic(HDImgUrlList, localAddr, key);
 		ThreadPool.getFileWithThreadPool(li, thread_Pool_Size);
-		dlService.saveImg(li,localAddr);
+		dlService.saveImg(li,localAddr,userId);
 		
-		return "下载完成";
+		Map<String,Object>  result = new HashedMap<String,Object>();
+		result.put("result", "下载成功");
+		
+		request.getSession().setAttribute("isOver","OK");
+		return JsonUtils.objectToJson(result);
+		
 
 	}
-
-	
 
 }

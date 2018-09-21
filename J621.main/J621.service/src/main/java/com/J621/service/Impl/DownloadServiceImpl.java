@@ -158,10 +158,11 @@ public class DownloadServiceImpl implements DownloadService {
 	}
 
 	@Override
-	public void saveImg(List<J621Image> li,String localAddr) {
+	public void saveImg(List<J621Image> li,String localAddr,String userId) {
 		for (J621Image j621Image : li) {
 			j621Image.setUrl(j621Image.getUrl().substring(FinalStrings.E621_STATIC.length(), j621Image.getUrl().length()));
 			j621Image.setFilePath(localAddr);
+			j621Image.setUserId(userId);
 			mapper.insert(j621Image);
 		}
 		System.out.println("保存完毕");
