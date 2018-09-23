@@ -1,0 +1,42 @@
+/.metadata/
+J621.main/.project
+*.prefs
+J621.main/J621.controller/.classpath
+J621.main/J621.controller/.project
+J621.main/J621.controller/.settings/.jsdtscope
+*.component
+J621.main/J621.controller/.settings/org.eclipse.wst.common.project.facet.core.xml
+*.container
+*.name
+J621.main/J621.dao/.classpath
+J621.main/J621.dao/.settings/org.eclipse.wst.common.project.facet.core.xml
+J621.main/J621.dao/.project
+J621.main/J621.service/.classpath
+J621.main/J621.service/.project
+J621.main/J621.service/.settings/org.eclipse.wst.common.project.facet.core.xml
+RemoteSystemsTempFiles/.project
+Servers/.project
+Servers/Tomcat v8.0 Server at localhost-config/catalina.policy
+Servers/Tomcat v8.0 Server at localhost-config/catalina.properties
+Servers/Tomcat v8.0 Server at localhost-config/context.xml
+Servers/Tomcat v8.0 Server at localhost-config/server.xml
+Servers/Tomcat v8.0 Server at localhost-config/tomcat-users.xml
+Servers/Tomcat v8.0 Server at localhost-config/web.xml
+Servers/Tomcat v8.5 Server at localhost-config/catalina.policy
+Servers/Tomcat v8.5 Server at localhost-config/catalina.properties
+Servers/Tomcat v8.5 Server at localhost-config/context.xml
+Servers/Tomcat v8.5 Server at localhost-config/server.xml
+Servers/Tomcat v8.5 Server at localhost-config/tomcat-users.xml
+Servers/Tomcat v8.5 Server at localhost-config/web.xml
+Servers/Tomcat v8.0 Server at localhost-config/catalina.policy
+Servers/Tomcat v8.0 Server at localhost-config/catalina.properties
+Servers/Tomcat v8.0 Server at localhost-config/context.xml
+Servers/Tomcat v8.0 Server at localhost-config/server.xml
+Servers/Tomcat v8.0 Server at localhost-config/tomcat-users.xml
+Servers/Tomcat v8.0 Server at localhost-config/web.xml
+Servers/Tomcat v8.0 Server at localhost-config/catalina.policy
+Servers/Tomcat v8.0 Server at localhost-config/catalina.properties
+Servers/Tomcat v8.0 Server at localhost-config/context.xml
+Servers/Tomcat v8.0 Server at localhost-config/server.xml
+Servers/Tomcat v8.0 Server at localhost-config/tomcat-users.xml
+Servers/Tomcat v8.0 Server at localhost-config/web.xml

@@ -32,17 +32,18 @@ public class UserController {
 	
 	@RequestMapping(value = "/resign", method = RequestMethod.GET)
 	@ResponseBody
-	public String resignUser(@RequestParam(value = "username", required = true) String username,
-			@RequestParam(value = "password", required = true) String password,
-			@RequestParam(value = "password2", required = true) String password2,
-			@RequestParam(value = "name", required = true) String name,
-			@RequestParam(value = "email", required = true) String email,
-			@RequestParam(value = "sex", required = true) String sex,
+	public String resignUser(@RequestParam(value = "username", required = false) String username,
+			@RequestParam(value = "password", required = false) String password,
+			@RequestParam(value = "password2", required = false) String password2,
+			@RequestParam(value = "name", required = false) String name,
+			@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "sex", required = false) String sex,
 			HttpServletRequest request) {
 		J621User user = new J621User();
 
 		user.setId(IDUtil.getID());
 		user.setUsername(username);
+		
 		
 		if (!password.equals(password2)) {
 			return "两次输入密码不一致";
@@ -67,7 +68,7 @@ public class UserController {
 			@RequestParam(value = "password", required = true) String password,HttpServletResponse response) throws IOException {
 				
 		
-	
+		System.out.println(username);
 		String json = userService.login(username, password);
 		System.out.println(json);
 		//response.getWriter().write(json);

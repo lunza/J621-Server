@@ -37,6 +37,37 @@
 	</filter-mapping>
 
 
+	<!--在conf/web.xml中的DefaultServlet的定义 -->
+	<servlet>
+		<servlet-name>default</servlet-name>
+		<servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>0</param-value>
+		</init-param>
+		<init-param>
+			<param-name>listings</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!--defaultServletMapping -->
+	<!-- The mapping for the default servlet -->
+	<!--通过defaultServlet来处理jpg -->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.jpg</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.css</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.js</url-pattern>
+	</servlet-mapping>
+
+
 	<!-- springmvc的前端控制器 -->
 	<servlet>
 		<servlet-name>com.J621</servlet-name>
@@ -52,6 +83,6 @@
 		<servlet-name>com.J621</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
-	
+
+
 </web-app>

@@ -36,13 +36,13 @@ public class J621Controller {
 
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
 	@ResponseBody
-	public String downloadImages(@RequestParam(value = "endIndex", required = true) String endIndex,
-			@RequestParam(value = "startIndex", required = true) String startIndex,
-			@RequestParam(value = "key", required = true) String key,
-			@RequestParam(value = "minScore", required = true) String minScore,
-			@RequestParam(value = "localAddr", required = true) String localAddr,
-			@RequestParam(value = "threadPoolSize", required = true) String threadPoolSize,
-			@RequestParam(value = "userId", required = true) String userId,
+	public String downloadImages(@RequestParam(value = "endIndex", required = false) String endIndex,
+			@RequestParam(value = "startIndex", required = false) String startIndex,
+			@RequestParam(value = "key", required = false) String key,
+			@RequestParam(value = "minScore", required = false) String minScore,
+			@RequestParam(value = "localAddr", required = false) String localAddr,
+			@RequestParam(value = "threadPoolSize", required = false) String threadPoolSize,
+			@RequestParam(value = "userId", required = false) String userId,
 			HttpServletRequest request) throws IOException {
 		int start_Index = Integer.parseInt(startIndex);
 		int thread_Pool_Size = Integer.parseInt(threadPoolSize);

@@ -2,11 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.sql.*"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
+<%@ include file="/common.jsp"%>
+
 <%
 	String webName = request.getSession().getAttribute("webName").toString();
 %>
@@ -21,14 +18,17 @@
 <html>
 <head>
 <title>下载</title>
-<base href="<%=basePath%>">
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="http://malsup.github.com/jquery.form.js"></script>
-<link rel="stylesheet" href= "<%=basePath%>css/main.css" type="text/css" />
-<script type="text/javascript">
+<style type="text/css">
+body {
+  padding-top: 10px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+</style>
 
+<script type="text/javascript">
 	$(function() {
-		
+
 		$('#submitBtn').click(function() {
 			$.ajax({
 				url : 'J621/service/download',
@@ -38,43 +38,89 @@
 				timeout : 100000, //超时时间设置，单位毫秒
 				//async : false,//同步
 				beforeSend : function() {
-					$(".sk-double-bounce").show();
+					var index = layer.msg('下载中。。。', {
+						icon : 16,
+						shade : 0.01,
+						time : false
+					});
+				},
+				success : function(json) {
+					layer.closeAll();
+					var index = layer.msg(json.result, {
+						icon : 1,
+						shade : 0.01,
+						time : 1000
+					});
+				},
+				error : function(json) {
+					var index = layer.msg(json.result, {
+						icon : 1,
+						shade : 0.01,
+						time : 1000
+					});
+					layer.closeAll();
 				}
 			});
 		});
-		
-		
 	})
-	
-	
-	
 </script>
-
-
 
 </head>
 <body>
 	<div id="webName" align="right" style="margin-top: 0px">
-		欢迎
-		<%=webName%>
-		!
+		欢迎<%=webName%>!
 	</div>
-	<form id="myForm">
-		<input type="hidden" name="userId" value="<%=userId%>" /> 起始页：<input
-			type="text" name="startIndex" value="1" /><br> 结束页：<input
-			type="text" name="endIndex" value="1" /> <br> 关键字：<input
-			type="text" name="key" value="cuntboy" /> <br> 最低评分：<input
-			type="text" name="minScore" value="20" /> <br> 本地根路径：<input
-			type="text" name="localAddr" value="H:\\pic\\" /> <br> 线程：<input
-			type="text" name="threadPoolSize" value="8" /> <br>
-		<button id="submitBtn">下载</button>
+	<form id="myForm" class="form-horizontal">
+		<div class="container">
+		
+			<div class="row" style="padding: 20px 0">
+				<h3>输入参数</h3>
+				<input type="hidden" name="userId" value="<%=userId%>" />
+			</div>
+			
+			<div class="row form-group">
+				<label class="control-label col-lg-1" for="startIndex">起始页</label>
+				<div class="col-lg-5 col-md-6">
+					<input class="form-control" name="startIndex" value="1"  type="text">
+				</div>
+			</div>
+			
+			<div class="row form-group">
+				<label class="control-label col-lg-1" for="endIndex">结束页</label>
+				<div class="col-lg-5 col-md-6">
+					<input class="form-control" name="endIndex" value="1" type="text">
+				</div>
+			</div>
+			
+			<div class="row form-group">
+				<label class="control-label col-lg-1" for="key">关键字</label>
+				<div class="col-lg-5 col-md-6">
+					<input class="form-control" name="key" value="cuntboy"  type="text">
+				</div>
+			</div>
+			
+			<div class="row form-group">
+				<label class="control-label col-lg-1" for="minScore">最低评分</label>
+				<div class="col-lg-5 col-md-6">
+					<input class="form-control" name="minScore" value="200"  type="text">
+				</div>
+			</div>
+			
+			<div class="row form-group">
+				<label class="control-label col-lg-1" for="localAddr">本地路径</label>
+				<div class="col-lg-5 col-md-6">
+					<input class="form-control" name="localAddr" value="E:\\pics\\"  type="text">
+				</div>
+			</div>
+			
+			<div class="row form-group">
+				<label class="control-label col-lg-1" for="threadPoolSize">线程</label>
+				<div class="col-lg-5 col-md-6">
+					<input class="form-control" name="threadPoolSize" value="8"  type="text" disabled>
+				</div>
+			</div>
+			 <button class="btn btn-lg btn-primary btn-block" type="button" id = 'submitBtn'>色图来</button>
+		</div>
 	</form>
-	<br>
-
-
-	<div class="sk-double-bounce">
-		<div class="sk-child sk-double-bounce1">111</div>
-		<div class="sk-child sk-double-bounce2"></div>
-	</div>
 </body>
 </html>
