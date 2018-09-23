@@ -105,12 +105,13 @@ public class DownloadServiceImpl implements DownloadService {
 	}
 
 	@Override
-	public List<J621Image> downloadPic(List<String> hDImgUrlList, String lOCAL_ADDR, String kEY) {
+	public List<J621Image> downloadPic(List<String> hDImgUrlList, String lOCAL_ADDR, String kEY,String userId) {
 
 		String mKey = MD5Util.encrypt(kEY);
-		Map<String, J621Image> imageMap = mapper.getAllImagesByKey(mKey);
+		System.out.println(mKey);
+		Map<String, J621Image> imageMap = mapper.getAllImagesByKey(mKey,userId);
 
-		int MaxFileName = mapper.getMxFileName(mKey);
+		int MaxFileName = mapper.getMxFileName(mKey,userId);
 
 		List<J621Image> li = new ArrayList<J621Image>();
 		int count = 1;

@@ -295,7 +295,7 @@
       FILE_PATH = #{filePath,jdbcType=VARCHAR},
       IMAGE_TYPE = #{imageType,jdbcType=VARCHAR},
       SCORE = #{score,jdbcType=VARCHAR},
-      KEYSES = #{keyses,jdbcType=VARCHAR},
+      KEYSES = #{key,jdbcType=VARCHAR},
       IMAGE_COUNT = #{imageCount,jdbcType=INTEGER},
       CREATE_DAY = #{createDay,jdbcType=VARCHAR},
       USER_ID = #{userId,jdbcType=VARCHAR},
@@ -307,14 +307,14 @@
     select 
     <include refid="Base_Column_List" />
     from J621_image
-    where KEYSES = #{key,jdbcType=VARCHAR}
+    where KEYSES = #{0} and USER_ID = #{1}
   </select>
   
    <select id="getMxFileName" resultType="java.lang.Integer" parameterType="java.lang.String" >
     select 
     IFNULL(Max(IMAGE_COUNT),0)
     from J621_image
-    where KEYSES = #{key,jdbcType=VARCHAR}
+    where KEYSES = #{0} and USER_ID = #{1}
   </select>
   
 </mapper>

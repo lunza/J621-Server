@@ -1,5 +1,6 @@
 package com.J621.service.Impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -7,11 +8,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
+import com.J621.utils.ZipUtils;
 import com.J621.vo.J621Image;
 
 public class ThreadPool {
 
-	public static String getFileWithThreadPool(List<J621Image> tdData, int threadPoolSize) {
+	public static String getFileWithThreadPool(List<J621Image> tdData, int threadPoolSize) throws IOException {
 		ExecutorService taskExecutor = Executors.newCachedThreadPool();
 		int end = tdData.size();
 		List<J621Image> data = new ArrayList<J621Image>();

@@ -31,7 +31,7 @@ public interface J621ImageMapper {
 
     int updateByPrimaryKey(J621Image record);
     @MapKey("url")
-	Map<String, J621Image> getAllImagesByKey(String key);
+	Map<String, J621Image> getAllImagesByKey(String keyses,String userId);
 
-	int getMxFileName(String key);
+	int getMxFileName(String key,String userId);
 }

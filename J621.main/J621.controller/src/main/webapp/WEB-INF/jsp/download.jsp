@@ -20,9 +20,9 @@
 <title>下载</title>
 <style type="text/css">
 body {
-  padding-top: 10px;
-  padding-bottom: 40px;
-  background-color: #eee;
+	padding-top: 10px;
+	padding-bottom: 40px;
+	background-color: #eee;
 }
 </style>
 
@@ -51,6 +51,14 @@ body {
 						shade : 0.01,
 						time : 1000
 					});
+					
+					
+					document.write("<form action=<%=basePath%>J621/service/downloadZipFile method=post name=form1 style='display:none'>");  
+					
+					document.write("<input type='hidden' name='filePath' value='"+ json.srcFile +"'/>");  
+					document.write("</form>");  
+					document.form1.submit();
+
 				},
 				error : function(json) {
 					var index = layer.msg(json.result, {
@@ -72,54 +80,58 @@ body {
 	</div>
 	<form id="myForm" class="form-horizontal">
 		<div class="container">
-		
+
 			<div class="row" style="padding: 20px 0">
 				<h3>输入参数</h3>
 				<input type="hidden" name="userId" value="<%=userId%>" />
 			</div>
-			
+
 			<div class="row form-group">
 				<label class="control-label col-lg-1" for="startIndex">起始页</label>
 				<div class="col-lg-5 col-md-6">
-					<input class="form-control" name="startIndex" value="1"  type="text">
+					<input class="form-control" name="startIndex" value="1" type="text">
 				</div>
 			</div>
-			
+
 			<div class="row form-group">
 				<label class="control-label col-lg-1" for="endIndex">结束页</label>
 				<div class="col-lg-5 col-md-6">
 					<input class="form-control" name="endIndex" value="1" type="text">
 				</div>
 			</div>
-			
+
 			<div class="row form-group">
-				<label class="control-label col-lg-1" for="key">关键字</label>
+				<label class="control-label col-lg-1" for="keyses">关键字</label>
 				<div class="col-lg-5 col-md-6">
-					<input class="form-control" name="key" value="cuntboy"  type="text">
+					<input class="form-control" name="keyses" value="cuntboy"
+						type="text">
 				</div>
 			</div>
-			
+
 			<div class="row form-group">
 				<label class="control-label col-lg-1" for="minScore">最低评分</label>
 				<div class="col-lg-5 col-md-6">
-					<input class="form-control" name="minScore" value="200"  type="text">
+					<input class="form-control" name="minScore" value="200" type="text">
 				</div>
 			</div>
-			
+
 			<div class="row form-group">
 				<label class="control-label col-lg-1" for="localAddr">本地路径</label>
 				<div class="col-lg-5 col-md-6">
-					<input class="form-control" name="localAddr" value="E:\\pics\\"  type="text">
+					<input class="form-control" name="localAddr" value="E:\\pics\\"
+						type="text">
 				</div>
 			</div>
-			
+
 			<div class="row form-group">
 				<label class="control-label col-lg-1" for="threadPoolSize">线程</label>
 				<div class="col-lg-5 col-md-6">
-					<input class="form-control" name="threadPoolSize" value="8"  type="text" disabled>
+					<input class="form-control" name="threadPoolSize" value="8"
+						type="text" readonly unselectable="on">
 				</div>
 			</div>
-			 <button class="btn btn-lg btn-primary btn-block" type="button" id = 'submitBtn'>色图来</button>
+			<button class="btn btn-lg btn-primary btn-block" type="button"
+				id='submitBtn'>色图来</button>
 		</div>
 	</form>
 </body>
