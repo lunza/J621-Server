@@ -29,7 +29,6 @@ body {
 				async : false,//同步
 				success : function(json) {
 
-					
 					if(json.result=="登录成功"){
 						//layer.alert(json.result, {icon: 6});
 						layer.msg(json.result, {

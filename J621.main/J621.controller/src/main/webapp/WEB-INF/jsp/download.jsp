@@ -116,14 +116,6 @@ body {
 			</div>
 
 			<div class="row form-group">
-				<label class="control-label col-lg-1" for="localAddr">本地路径</label>
-				<div class="col-lg-5 col-md-6">
-					<input class="form-control" name="localAddr" value="E:\\pics\\"
-						type="text">
-				</div>
-			</div>
-
-			<div class="row form-group">
 				<label class="control-label col-lg-1" for="threadPoolSize">线程</label>
 				<div class="col-lg-5 col-md-6">
 					<input class="form-control" name="threadPoolSize" value="8"

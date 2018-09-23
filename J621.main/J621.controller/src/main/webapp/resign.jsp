@@ -2,25 +2,124 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.sql.*"%>
+<%@ include file="../common.jsp"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>注册</title>
+<style type="text/css">
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+</style>
+
+<script type="text/javascript">
+	$(function() {
+
+		$('#submitBtn').click(function() {
+			$.ajax({
+				url : 'J621/user/resign',
+				data : $('#myForm').serialize(),
+				type : "GET",
+				dataType : "json",
+				timeout : 100000, //超时时间设置，单位毫秒
+				async : false,//同步
+				
+				success : function(json) {
+
+					if(json.result=="注册成功"){
+						//layer.alert(json.result, {icon: 6});
+						layer.msg(json.result, {
+							  time: 0 //不自动关闭
+							  ,btn: ['确认']
+						      ,area:['200px']
+							  ,yes: function(index){
+							    event.preventDefault();
+							    layer.close(index);
+								//alert("${pageContext.request.contextPath}");
+								$(location).attr('href','login.jsp');
+							  }
+							});
+						
+					}else{
+						layer.msg(json.result, {
+							  time: 0 //不自动关闭
+							  ,btn: ['确认']
+						      ,area:['200px']
+							  ,yes: function(index){
+							    event.preventDefault();
+							    layer.close(index);
+							  }
+							});
+					}
+					
+				}
+			});
+		});
+	})
+</script>
+
 </head>
 <body>
-	<form  method="get" action="<%=request.getContextPath()%>/J621/user/resign">
+	
+	
 
-		用户名：<input type="text" name="username" value="admin" /><br> 
-		密码：<input type="text" name="password" value="123" /> <br> 
-		确认密码：<input type="text" name="password2" value="123" /> <br> 
-		昵称：<input type="text" name="name" value="管理员" /> <br>
-		邮箱：<input type="text" name="email" value="a1299021@163.com" /> <br>
-		性别：<input type="text" name="sex" value="男" /> <br> 
-		
-		<input type="submit" value="注册"><br>
+	<form id="myForm" class="form-horizontal"  method="get" action="<%=request.getContextPath()%>/J621/user/resign">
+		<div class="container">
+
+			<div class="row" style="padding: 20px 0">
+				<h3>注册</h3>
+				
+			</div>
+
+			<div class="row form-group">
+				<label class="control-label col-lg-1" for="username">用户名</label>
+				<div class="col-lg-5 col-md-6">
+					<input class="form-control" name="username"  type="text">
+				</div>
+			</div>
+
+			<div class="row form-group">
+				<label class="control-label col-lg-1" for="password">密码</label>
+				<div class="col-lg-5 col-md-6">
+					<input class="form-control" name="password"  type="text">
+				</div>
+			</div>
+
+			<div class="row form-group">
+				<label class="control-label col-lg-1" for="password2">确认密码</label>
+				<div class="col-lg-5 col-md-6">
+					<input class="form-control" name="password2"
+						type="text">
+				</div>
+			</div>
+
+			<div class="row form-group">
+				<label class="control-label col-lg-1" for="name">昵称</label>
+				<div class="col-lg-5 col-md-6">
+					<input class="form-control" name="name"  type="text">
+				</div>
+			</div>
+
+			<div class="row form-group">
+				<label class="control-label col-lg-1" for="email">邮箱</label>
+				<div class="col-lg-5 col-md-6">
+					<input class="form-control" name="email" >
+				</div>
+			</div>
+			<div class="row form-group">
+				<label class="control-label col-lg-1" for="sex">性别</label>
+				<div class="col-lg-5 col-md-6">
+					<input class="form-control" name="sex" type="text">
+				</div>
+			</div>
+			
+			<button class="btn btn-lg btn-primary btn-block" type="submit"
+				id='submitBtn'>注册</button>
+		</div>
 	</form>
-	
-	
 </body>
 </html>

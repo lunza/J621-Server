@@ -3,7 +3,12 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.sql.*"%>
 <%
+	String os = System.getProperty("os.name");
 	String path = request.getContextPath();
+	if (os.toLowerCase().startsWith("linux")) {
+		path = "/apphost" + path;
+	}
+
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>

@@ -24,16 +24,22 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String resign(J621User user) {
 		// TODO Auto-generated method stub
+		Map<String, Object> result = new HashMap<String, Object>();
+		String json = "";
 		J621UserExample example = new J621UserExample();
 		Criteria c = example.createCriteria();
 		c.andUsernameEqualTo(user.getUsername());
 		
 		List<J621User> li = userMapper.selectByExample(example);
 		if(li!=null&&li.size()!=0) {
-			return "用户已存在";
+			result.put("result", "用户已存在");
+			json = JsonUtils.objectToJson(result);
+			return json;
 		}
 		userMapper.insert(user);
-		return "注册成功";
+		result.put("result", "注册成功");
+		json = JsonUtils.objectToJson(result);
+		return json;
 	}
 
 	@Override

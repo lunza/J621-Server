@@ -120,7 +120,7 @@ public class DownloadServiceImpl implements DownloadService {
 		}
 		int total = 0;
 		String filePath = null;
-		String savePath = lOCAL_ADDR + kEY + "\\";
+		String savePath = lOCAL_ADDR + kEY + FinalStrings.separator;
 		File file = new File(savePath);
 		if (!file.exists()) {
 			file.mkdirs();

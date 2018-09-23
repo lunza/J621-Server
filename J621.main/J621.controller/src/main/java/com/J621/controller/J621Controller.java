@@ -3,7 +3,6 @@ package com.J621.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,27 +14,23 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.J621.service.DownloadService;
-import com.J621.service.UserService;
 import com.J621.service.Impl.ThreadPool;
 import com.J621.utils.FinalStrings;
-import com.J621.utils.IDUtil;
-import com.J621.utils.IPUtil;
 import com.J621.utils.JsonUtils;
-import com.J621.utils.MD5Util;
 import com.J621.utils.ZipUtils;
 import com.J621.vo.J621Image;
-import com.J621.vo.J621User;
 
 @Controller
 @RequestMapping("/J621/service")
 public class J621Controller {
+	
+	private static String os = FinalStrings.getOS();
 
 	@Autowired
 	private DownloadService dlService;
@@ -46,10 +41,16 @@ public class J621Controller {
 			@RequestParam(value = "startIndex", required = false) String startIndex,
 			@RequestParam(value = "keyses", required = false) String keyses,
 			@RequestParam(value = "minScore", required = false) String minScore,
-			@RequestParam(value = "localAddr", required = false) String localAddr,
 			@RequestParam(value = "threadPoolSize", required = false) String threadPoolSize,
 			@RequestParam(value = "userId", required = false) String userId, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
+		
+		String localAddr = "";
+		if(os.equals("windows")) {
+			localAddr="E:\\pics\\";
+		}else {
+			localAddr="/root/pics/";
+		}
 		int start_Index = Integer.parseInt(startIndex);
 		int thread_Pool_Size = Integer.parseInt(threadPoolSize);
 		int end_Index = Integer.parseInt(endIndex);
@@ -76,7 +77,16 @@ public class J621Controller {
 
 		Map<String, Object> result = new HashedMap<String, Object>();
 		result.put("result", "下载成功");
-		result.put("srcFile", (srcFile + ".zip").replaceAll("\\\\", "~"));
+		String rep = "";
+		String sep = "";
+		if(os.equals("windows")) {
+			rep="\\\\";
+			sep="~~";
+		}else {
+			rep=FinalStrings.separator;
+			sep="~";
+		}
+		result.put("srcFile", (srcFile + ".zip").replaceAll(rep, sep));
 		//request.getSession().setAttribute("srcFile", srcFile + ".zip");
 		request.getSession().setAttribute("isOver", "OK");
 		return JsonUtils.objectToJson(result);
@@ -88,21 +98,36 @@ public class J621Controller {
 	public void downloadZipFile(HttpServletResponse response,
 			@RequestParam(value = "filePath", required = true) String filePath) {
 		System.out.println(filePath);
-		filePath = filePath.replace("~~", "\\");
-		System.out.println(filePath);
+		String sep = "";
+		if(os.equals("windows")) {
+			
+			sep="~~";
+		}else {
+			
+			sep="~";
+		}
+		String filePath2 = filePath.replace(sep, FinalStrings.separator);
+		System.out.println(filePath2);
+		File file1 =null;
 		OutputStream os = null;
 		try {
 			os = response.getOutputStream();
-			File file = new File(filePath);
+			file1 = new File(filePath2);
+			
 			// Spring工具获取项目resources里的文件
 			// File file2 = ResourceUtils.getFile("classpath:shell/init.sh");
-			if (!file.exists()) {
+			if (!file1.exists()) {
 				return;
 			}
 			response.reset();
-			response.setHeader("Content-Disposition", "attachment;filename=" + filePath);
+			if(os.equals("windows")) {
+				response.setHeader("Content-Disposition", "attachment;filename=" + filePath.split(sep)[2]);
+			}else {
+				response.setHeader("Content-Disposition", "attachment;filename=" + filePath.split(sep)[3]);
+			}
+
 			response.setContentType("application/octet-stream; charset=utf-8");
-			os.write(FileUtils.readFileToByteArray(file));
+			os.write(FileUtils.readFileToByteArray(file1));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
