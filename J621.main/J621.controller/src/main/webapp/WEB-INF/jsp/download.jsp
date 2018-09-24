@@ -35,9 +35,11 @@ body {
 				data : $('#myForm').serialize(),
 				type : "GET",
 				dataType : "json",
-				timeout : 100000, //超时时间设置，单位毫秒
+				timeout : 3600000, //超时时间设置，单位毫秒
 				//async : false,//同步
 				beforeSend : function() {
+					$('hidden_div').css('display', 'block');
+
 					var index = layer.msg('下载中。。。', {
 						icon : 16,
 						shade : 0.01,
@@ -45,6 +47,9 @@ body {
 					});
 				},
 				success : function(json) {
+					$('hidden_div').css('display', 'none');
+					if(json.result=="下载成功"){
+						
 					layer.closeAll();
 					var index = layer.msg(json.result, {
 						icon : 1,
@@ -59,6 +64,14 @@ body {
 					document.write("</form>");  
 					document.form1.submit();
 
+					}else{
+						layer.closeAll();
+						var index = layer.msg(json.result, {
+							icon : 2,
+							shade : 0.01,
+							time : 1000
+						});
+					}
 				},
 				error : function(json) {
 					var index = layer.msg(json.result, {
@@ -124,7 +137,14 @@ body {
 			</div>
 			<button class="btn btn-lg btn-primary btn-block" type="button"
 				id='submitBtn'>色图来</button>
+				
+			<label class="control-label" style="color:red">注： ① 每个账号下载过的图片不会再次下载</label><br>
+			<label class="control-label" style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;② 当起始页等于结束页时 下载一页图片</label><br>
+			<label class="control-label" style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;③ 支持多关键字下载，关键字之间以空格分隔</label><br>
 		</div>
 	</form>
+	
+	<div class="hidden_div" id="hiddenDivId"></div>
+
 </body>
 </html>

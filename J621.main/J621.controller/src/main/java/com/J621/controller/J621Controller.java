@@ -3,6 +3,7 @@ package com.J621.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +49,38 @@ public class J621Controller {
 			HttpServletResponse response) throws IOException {
 		
 		SysUtils.deletePath(userId);
+		
+		
+		Map<String, Object> m = new HashMap<String, Object>();
+		if (endIndex==null||endIndex.equals("")) {
+			m.put("result", "起始页不能为空");
+			return JsonUtils.objectToJson(m);
+		}
+		if (!JsonUtils.validateNum(startIndex)) {
+			m.put("result", "起始页只能输入数字");
+			return JsonUtils.objectToJson(m);
+		}
+		
+		if (startIndex==null||startIndex.equals("")) {
+			m.put("result", "结束页不能为空");
+			return JsonUtils.objectToJson(m);
+		}
+		if (!JsonUtils.validateNum(startIndex)) {
+			m.put("result", "结束页只能输入数字");
+			return JsonUtils.objectToJson(m);
+		}
+		
+		if (keyses==null||keyses.equals("")) {
+			m.put("result", "关键字不能为空");
+			return JsonUtils.objectToJson(m);
+		}
+		
+		if (!JsonUtils.validateLetter(startIndex)) {
+			m.put("result", "关键字只能输入英文，数字，空格或下划线");
+			return JsonUtils.objectToJson(m);
+		}
+		
+		
 		String localAddr = "";
 		if (os.equals("windows")) {
 			localAddr = FinalStrings.WINADDR;
@@ -58,12 +91,22 @@ public class J621Controller {
 		int thread_Pool_Size = Integer.parseInt(threadPoolSize);
 		int end_Index = Integer.parseInt(endIndex);
 		// String key = pro.getProperty("KEY");
+		if(minScore==null||minScore.equals("")) {
+			minScore="0";
+		}
 		int min_Score = Integer.parseInt(minScore);
 		
 		// String localAddr = pro.getProperty("LOCAL_ADDR");
 		// int start_File_Name = Integer.parseInt(startFileName);
 		System.err.println("开始分析页码信息");
 		List<String> indexUrlList = dlService.getIndexUrlList(start_Index, end_Index, keyses);
+		// 校验服务器可用性与关键字可用性
+		String testUrl = indexUrlList.get(0);
+		testUrl = dlService.testUrl(testUrl);
+		if(testUrl!=null) {
+			return testUrl;
+		}
+		
 		System.err.println("页码信息分析完毕,开始分析图片详细地址");
 		List<String> SimpleImgUrlList = dlService.getSimpleImgUrlList(indexUrlList, min_Score);
 		System.err.println("详细地址分析完毕,开始分析图片静态地址");
@@ -115,9 +158,9 @@ public class J621Controller {
 		String filePath2 = filePath.replace(sep, FinalStrings.SEPARATOR);
 		System.out.println(filePath2);
 		File file1 = null;
-		OutputStream os = null;
+		OutputStream ose = null;
 		try {
-			os = response.getOutputStream();
+			ose = response.getOutputStream();
 			file1 = new File(filePath2);
 
 			// Spring工具获取项目resources里的文件
@@ -129,15 +172,15 @@ public class J621Controller {
 			if (os.equals("windows")) {
 				response.setHeader("Content-Disposition", "attachment;filename=" + filePath.split(sep)[2]);
 			} else {
-				response.setHeader("Content-Disposition", "attachment;filename=" + filePath.split(sep)[3]);
+				response.setHeader("Content-Disposition", "attachment;filename=" + filePath.split(sep)[4]);
 			}
 
 			response.setContentType("application/octet-stream; charset=utf-8");
-			os.write(FileUtils.readFileToByteArray(file1));
+			ose.write(FileUtils.readFileToByteArray(file1));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			IOUtils.closeQuietly(os);
+			IOUtils.closeQuietly(ose);
 		}
 	}
 

@@ -53,11 +53,7 @@ public class SysUtils {
     
     public static void main(String[] args) {
 
-        if (deletePath("管理员")) {
-            System.out.println("删除成功");
-        }else {
-            System.out.println("删除失败");
-        }
+        
     }
  
 }

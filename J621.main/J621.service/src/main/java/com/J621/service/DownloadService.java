@@ -17,5 +17,7 @@ public interface DownloadService {
 
 	public void saveImg(List<J621Image> li,String localAddr, String userId);
 
+	public String testUrl(String testUrl);
+
 
 }

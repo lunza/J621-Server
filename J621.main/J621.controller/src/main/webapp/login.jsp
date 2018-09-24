@@ -70,13 +70,13 @@ body {
 </head>
 <body>
 <div class="container">
-
+ 
       <form id = 'myForm' class="form-signin">
         <h2 class="form-signin-heading">欢迎使用下载器</h2>
         <label for="inputEmail" class="sr-only">账号</label>
-        <input name = 'username' type="text" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <input name = 'username' type="text" id="inputEmail" class="form-control" placeholder="请输入用户名" required autofocus>
         <label for="inputPassword" class="sr-only">密码</label>
-        <input name = 'password' type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input name = 'password' type="password" id="inputPassword" class="form-control" placeholder="请输入密码" required>
         <div class="checkbox">
           <label>
             <input type="checkbox" value="remember-me"> Remember me

@@ -47,6 +47,24 @@ public class UserController {
 		user.setId(IDUtil.getID());
 		user.setUsername(username);
 		
+		if (username==null||username.equals("")) {
+			m.put("result", "用户名不能为空");
+			return JsonUtils.objectToJson(m);
+		}
+		if (!JsonUtils.validateNumAndLetter(username)) {
+			m.put("result", "用户名只能输入数字或英文字母");
+			return JsonUtils.objectToJson(m);
+		}
+		
+		if (password==null||password.equals("")) {
+			m.put("result", "密码不能为空");
+			return JsonUtils.objectToJson(m);
+		}
+		
+		if (!JsonUtils.validateNumAndLetter(password)) {
+			m.put("result", "密码只能输入数字或英文字母");
+			return JsonUtils.objectToJson(m);
+		}
 		
 		if (!password.equals(password2)) {
 			m.put("result", "两次输入密码不一致");
@@ -55,10 +73,8 @@ public class UserController {
 			user.setPassword(MD5Util.encrypt(password));
 			user.setSalt(FinalStrings.SALT.toString());
 		}
-		if(sex.length()>1) {
-			m.put("result", "性别只能输入一个字");
-			return JsonUtils.objectToJson(m);
-		}
+		
+		
 		user.setCreateDate(new Date());
 		user.setName(name);
 		user.setEmail(email);
@@ -74,8 +90,16 @@ public class UserController {
 	@ResponseBody
 	public String loginCheck(@RequestParam(value = "username", required = true) String username,
 			@RequestParam(value = "password", required = true) String password,HttpServletResponse response) throws IOException {
-				
 		
+		Map<String, Object> m = new HashMap<String, Object>();
+		if (username==null||username.equals("")) {
+			m.put("result", "用户名不能为空");
+			return JsonUtils.objectToJson(m);
+		}
+		if (password==null||password.equals("")) {
+			m.put("result", "密码不能为空");
+			return JsonUtils.objectToJson(m);
+		}
 		System.out.println(username);
 		String json = userService.login(username, password);
 		System.out.println(json);

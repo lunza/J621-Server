@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -21,6 +22,7 @@ import com.J621.dao.J621UserMapper;
 import com.J621.service.DownloadService;
 import com.J621.utils.FinalStrings;
 import com.J621.utils.IDUtil;
+import com.J621.utils.JsonUtils;
 import com.J621.utils.MD5Util;
 import com.J621.vo.J621Image;
 import com.J621.vo.J621User;
@@ -33,14 +35,13 @@ public class DownloadServiceImpl implements DownloadService {
 	@Autowired
 	private J621ImageMapper mapper;
 
-
 	@Override
 	public List<String> getIndexUrlList(int startIndex, int endIndex, String kEY) {
 		String url = null;
 		List<String> indexUrlList = new ArrayList<String>();
 		for (int a = startIndex; a <= endIndex; a++) {
 			url = "https://e621.net/post/index/" + a + "/" + kEY;
-			System.out.println("正在扫描第" + a + "页,地址为" + url);
+			// System.out.println("正在扫描第" + a + "页,地址为" + url);
 			indexUrlList.add(url);
 		}
 
@@ -58,6 +59,9 @@ public class DownloadServiceImpl implements DownloadService {
 		for (String indexUrl : indexUrlList) {
 			doc = Jsoup.connect(indexUrl).get();
 			Elements spans = doc.getElementsByClass("thumb");
+			if(spans==null||spans.size()==0) {
+				continue;
+			}
 			for (Element span : spans) {
 				Elements scores = span.getElementsByClass("post-score-faves");
 				for (Element score : scores) {
@@ -116,8 +120,6 @@ public class DownloadServiceImpl implements DownloadService {
 
 		int MaxFileName = mapper.getMxFileName(mKey, userId);
 
-		
-
 		List<J621Image> li = new ArrayList<J621Image>();
 		int count = 1;
 		if (MaxFileName != 1) {
@@ -174,6 +176,24 @@ public class DownloadServiceImpl implements DownloadService {
 			mapper.insert(j621Image);
 		}
 		System.out.println("保存完毕");
+	}
+
+	@Override
+	public String testUrl(String testUrl) {
+		Map<String, Object> m = new HashMap<String, Object>();
+		try {
+			Document doc = Jsoup.connect(testUrl).get();
+			Elements spans = doc.getElementsByClass("thumb");
+			if(spans==null||spans.size()==0) {
+				
+				m.put("result", "未找到该关键字");
+				return JsonUtils.objectToJson(m);
+			}
+		} catch (IOException e) {
+			m.put("result", "服务器维护中，稍后再试");
+			return JsonUtils.objectToJson(m);
+		}
+		return null;
 	}
 
 }

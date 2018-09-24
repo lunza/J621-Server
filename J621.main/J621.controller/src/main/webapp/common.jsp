@@ -40,5 +40,13 @@
 </head>
 <body>
 
+	<div id="footer" class="container" style="text-align:center;">
+		<nav class="navbar navbar-default navbar-fixed-bottom">
+		<div class="navbar-inner navbar-content-center">
+			<p class="text-muted credit" style="padding: 10px;">开发者：轮砸</p>
+		</div>
+
+		</nav>
+	</div>
 </body>
 </html>

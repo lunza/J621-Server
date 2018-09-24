@@ -37,9 +37,8 @@ public class MD5Util {
 	}
 
 	public static void main(String[] args) {
-		String temp = encrypt(" ");
-			System.out.println(temp);
-			String temp2 = decrypt(temp,FinalStrings.SALT.toString());
+		
+			String temp2 = decrypt("367.2,329.8,394.4,357.0,329.8,391.0",FinalStrings.SALT.toString());
 			System.out.println(temp2);
 		
 	}
