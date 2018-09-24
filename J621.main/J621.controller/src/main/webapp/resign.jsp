@@ -117,7 +117,7 @@ body {
 				</div>
 			</div>
 			
-			<button class="btn btn-lg btn-primary btn-block" type="submit"
+			<button class="btn btn-lg btn-primary btn-block" type="button"
 				id='submitBtn'>注册</button>
 		</div>
 	</form>

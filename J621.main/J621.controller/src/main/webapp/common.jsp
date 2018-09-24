@@ -35,6 +35,7 @@
 <script
 	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="<%=basePath%>static/layer/layer.js"></script>
+<script src="<%=basePath%>static/js/main.js"></script>
 </head>
 <body>
 

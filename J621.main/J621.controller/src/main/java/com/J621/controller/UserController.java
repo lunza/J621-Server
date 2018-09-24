@@ -40,16 +40,24 @@ public class UserController {
 			@RequestParam(value = "sex", required = true) String sex,
 			HttpServletRequest request) {
 		J621User user = new J621User();
-
+		Map<String, Object> m = new HashMap<String, Object>();
+		
+		
+		
 		user.setId(IDUtil.getID());
 		user.setUsername(username);
 		
 		
 		if (!password.equals(password2)) {
-			return "两次输入密码不一致";
+			m.put("result", "两次输入密码不一致");
+			return JsonUtils.objectToJson(m);
 		} else {
 			user.setPassword(MD5Util.encrypt(password));
 			user.setSalt(FinalStrings.SALT.toString());
+		}
+		if(sex.length()>1) {
+			m.put("result", "性别只能输入一个字");
+			return JsonUtils.objectToJson(m);
 		}
 		user.setCreateDate(new Date());
 		user.setName(name);
@@ -58,7 +66,7 @@ public class UserController {
 		String ip = IPUtil.getIpAddr(request);
 		user.setIp(ip);
 		String result =  userService.resign(user);
-		
+		System.out.println(result);
 		return result;
 	}
 	

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.J621.service.DownloadService;
+import com.J621.service.UserService;
 import com.J621.service.Impl.ThreadPool;
 import com.J621.utils.FinalStrings;
 import com.J621.utils.JsonUtils;
@@ -29,11 +30,13 @@ import com.J621.vo.J621Image;
 @Controller
 @RequestMapping("/J621/service")
 public class J621Controller {
-	
+
 	private static String os = FinalStrings.getOS();
 
 	@Autowired
 	private DownloadService dlService;
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
 	@ResponseBody
@@ -44,18 +47,19 @@ public class J621Controller {
 			@RequestParam(value = "threadPoolSize", required = false) String threadPoolSize,
 			@RequestParam(value = "userId", required = false) String userId, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		
+
 		String localAddr = "";
-		if(os.equals("windows")) {
-			localAddr="E:\\pics\\";
-		}else {
-			localAddr="/root/pics/";
+		if (os.equals("windows")) {
+			localAddr = FinalStrings.WINADDR;
+		} else {
+			localAddr = FinalStrings.LINADDR;
 		}
 		int start_Index = Integer.parseInt(startIndex);
 		int thread_Pool_Size = Integer.parseInt(threadPoolSize);
 		int end_Index = Integer.parseInt(endIndex);
 		// String key = pro.getProperty("KEY");
 		int min_Score = Integer.parseInt(minScore);
+		String userName = userService.getUserById(userId).getUsername();
 		// String localAddr = pro.getProperty("LOCAL_ADDR");
 		// int start_File_Name = Integer.parseInt(startFileName);
 		System.err.println("开始分析页码信息");
@@ -67,9 +71,10 @@ public class J621Controller {
 		List<String> HDImgUrlList = ThreadPool.getHDURLWithThreadPool(SimpleImgUrlList, thread_Pool_Size);
 		System.err.println("静态地址分析完毕,开始下载图片");
 		System.out.println(keyses);
-		List<J621Image> li = dlService.downloadPic(HDImgUrlList, localAddr, keyses, userId);
+		List<J621Image> li = dlService.downloadPic(HDImgUrlList, localAddr, keyses, userId, userName);
 		ThreadPool.getFileWithThreadPool(li, thread_Pool_Size);
-		String srcFile = localAddr + keyses;
+
+		String srcFile = localAddr + FinalStrings.SEPARATOR + userName + FinalStrings.SEPARATOR + keyses;
 		System.out.println(srcFile);
 		ZipUtils.doCompress(srcFile, srcFile + ".zip");
 
@@ -79,15 +84,15 @@ public class J621Controller {
 		result.put("result", "下载成功");
 		String rep = "";
 		String sep = "";
-		if(os.equals("windows")) {
-			rep="\\\\";
-			sep="~~";
-		}else {
-			rep=FinalStrings.separator;
-			sep="~";
+		if (os.equals("windows")) {
+			rep = "\\\\";
+			sep = "~~";
+		} else {
+			rep = FinalStrings.SEPARATOR;
+			sep = "~";
 		}
 		result.put("srcFile", (srcFile + ".zip").replaceAll(rep, sep));
-		//request.getSession().setAttribute("srcFile", srcFile + ".zip");
+		// request.getSession().setAttribute("srcFile", srcFile + ".zip");
 		request.getSession().setAttribute("isOver", "OK");
 		return JsonUtils.objectToJson(result);
 
@@ -99,30 +104,30 @@ public class J621Controller {
 			@RequestParam(value = "filePath", required = true) String filePath) {
 		System.out.println(filePath);
 		String sep = "";
-		if(os.equals("windows")) {
-			
-			sep="~~";
-		}else {
-			
-			sep="~";
+		if (os.equals("windows")) {
+
+			sep = "~~";
+		} else {
+
+			sep = "~";
 		}
-		String filePath2 = filePath.replace(sep, FinalStrings.separator);
+		String filePath2 = filePath.replace(sep, FinalStrings.SEPARATOR);
 		System.out.println(filePath2);
-		File file1 =null;
+		File file1 = null;
 		OutputStream os = null;
 		try {
 			os = response.getOutputStream();
 			file1 = new File(filePath2);
-			
+
 			// Spring工具获取项目resources里的文件
 			// File file2 = ResourceUtils.getFile("classpath:shell/init.sh");
 			if (!file1.exists()) {
 				return;
 			}
 			response.reset();
-			if(os.equals("windows")) {
+			if (os.equals("windows")) {
 				response.setHeader("Content-Disposition", "attachment;filename=" + filePath.split(sep)[2]);
-			}else {
+			} else {
 				response.setHeader("Content-Disposition", "attachment;filename=" + filePath.split(sep)[3]);
 			}
 

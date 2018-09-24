@@ -17,19 +17,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.J621.dao.J621ImageMapper;
+import com.J621.dao.J621UserMapper;
 import com.J621.service.DownloadService;
 import com.J621.utils.FinalStrings;
 import com.J621.utils.IDUtil;
 import com.J621.utils.MD5Util;
 import com.J621.vo.J621Image;
+import com.J621.vo.J621User;
 
 @Service
 public class DownloadServiceImpl implements DownloadService {
-	
+
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	@Autowired
 	private J621ImageMapper mapper;
+
 
 	@Override
 	public List<String> getIndexUrlList(int startIndex, int endIndex, String kEY) {
@@ -105,13 +108,15 @@ public class DownloadServiceImpl implements DownloadService {
 	}
 
 	@Override
-	public List<J621Image> downloadPic(List<String> hDImgUrlList, String lOCAL_ADDR, String kEY,String userId) {
+	public List<J621Image> downloadPic(List<String> hDImgUrlList, String lOCAL_ADDR, String kEY, String userId,String userName) {
 
 		String mKey = MD5Util.encrypt(kEY);
 		System.out.println(mKey);
-		Map<String, J621Image> imageMap = mapper.getAllImagesByKey(mKey,userId);
+		Map<String, J621Image> imageMap = mapper.getAllImagesByKey(mKey, userId);
 
-		int MaxFileName = mapper.getMxFileName(mKey,userId);
+		int MaxFileName = mapper.getMxFileName(mKey, userId);
+
+		
 
 		List<J621Image> li = new ArrayList<J621Image>();
 		int count = 1;
@@ -120,7 +125,8 @@ public class DownloadServiceImpl implements DownloadService {
 		}
 		int total = 0;
 		String filePath = null;
-		String savePath = lOCAL_ADDR + kEY + FinalStrings.separator;
+		String savePath = lOCAL_ADDR + FinalStrings.SEPARATOR + userName + FinalStrings.SEPARATOR + kEY
+				+ FinalStrings.SEPARATOR;
 		File file = new File(savePath);
 		if (!file.exists()) {
 			file.mkdirs();
@@ -159,9 +165,10 @@ public class DownloadServiceImpl implements DownloadService {
 	}
 
 	@Override
-	public void saveImg(List<J621Image> li,String localAddr,String userId) {
+	public void saveImg(List<J621Image> li, String localAddr, String userId) {
 		for (J621Image j621Image : li) {
-			j621Image.setUrl(j621Image.getUrl().substring(FinalStrings.E621_STATIC.length(), j621Image.getUrl().length()));
+			j621Image.setUrl(
+					j621Image.getUrl().substring(FinalStrings.E621_STATIC.length(), j621Image.getUrl().length()));
 			j621Image.setFilePath(localAddr);
 			j621Image.setUserId(userId);
 			mapper.insert(j621Image);
@@ -169,5 +176,4 @@ public class DownloadServiceImpl implements DownloadService {
 		System.out.println("保存完毕");
 	}
 
-	
 }
