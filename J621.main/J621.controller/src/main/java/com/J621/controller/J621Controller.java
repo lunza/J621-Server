@@ -24,6 +24,7 @@ import com.J621.service.UserService;
 import com.J621.service.Impl.ThreadPool;
 import com.J621.utils.FinalStrings;
 import com.J621.utils.JsonUtils;
+import com.J621.utils.SysUtils;
 import com.J621.utils.ZipUtils;
 import com.J621.vo.J621Image;
 
@@ -35,8 +36,6 @@ public class J621Controller {
 
 	@Autowired
 	private DownloadService dlService;
-	@Autowired
-	private UserService userService;
 
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
 	@ResponseBody
@@ -47,7 +46,8 @@ public class J621Controller {
 			@RequestParam(value = "threadPoolSize", required = false) String threadPoolSize,
 			@RequestParam(value = "userId", required = false) String userId, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-
+		
+		SysUtils.deletePath(userId);
 		String localAddr = "";
 		if (os.equals("windows")) {
 			localAddr = FinalStrings.WINADDR;
@@ -59,7 +59,7 @@ public class J621Controller {
 		int end_Index = Integer.parseInt(endIndex);
 		// String key = pro.getProperty("KEY");
 		int min_Score = Integer.parseInt(minScore);
-		String userName = userService.getUserById(userId).getUsername();
+		
 		// String localAddr = pro.getProperty("LOCAL_ADDR");
 		// int start_File_Name = Integer.parseInt(startFileName);
 		System.err.println("开始分析页码信息");
@@ -71,10 +71,10 @@ public class J621Controller {
 		List<String> HDImgUrlList = ThreadPool.getHDURLWithThreadPool(SimpleImgUrlList, thread_Pool_Size);
 		System.err.println("静态地址分析完毕,开始下载图片");
 		System.out.println(keyses);
-		List<J621Image> li = dlService.downloadPic(HDImgUrlList, localAddr, keyses, userId, userName);
+		List<J621Image> li = dlService.downloadPic(HDImgUrlList, localAddr, keyses, userId);
 		ThreadPool.getFileWithThreadPool(li, thread_Pool_Size);
 
-		String srcFile = localAddr + FinalStrings.SEPARATOR + userName + FinalStrings.SEPARATOR + keyses;
+		String srcFile = localAddr + FinalStrings.SEPARATOR + userId + FinalStrings.SEPARATOR + keyses;
 		System.out.println(srcFile);
 		ZipUtils.doCompress(srcFile, srcFile + ".zip");
 
@@ -101,7 +101,8 @@ public class J621Controller {
 	@RequestMapping(value = "/downloadZipFile", method = RequestMethod.POST)
 	@ResponseBody
 	public void downloadZipFile(HttpServletResponse response,
-			@RequestParam(value = "filePath", required = true) String filePath) {
+			@RequestParam(value = "filePath", required = true) String filePath
+			) {
 		System.out.println(filePath);
 		String sep = "";
 		if (os.equals("windows")) {

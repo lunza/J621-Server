@@ -21,6 +21,8 @@ body {
 <script type="text/javascript">
 	$(function() {
 		$('#submitBtn').click(function() {
+			
+ 
 			$.ajax({
 				url : 'J621/user/loginCheck',
 				data : $('#myForm').serialize(),

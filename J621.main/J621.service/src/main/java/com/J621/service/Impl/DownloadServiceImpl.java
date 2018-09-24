@@ -108,7 +108,7 @@ public class DownloadServiceImpl implements DownloadService {
 	}
 
 	@Override
-	public List<J621Image> downloadPic(List<String> hDImgUrlList, String lOCAL_ADDR, String kEY, String userId,String userName) {
+	public List<J621Image> downloadPic(List<String> hDImgUrlList, String lOCAL_ADDR, String kEY, String userId) {
 
 		String mKey = MD5Util.encrypt(kEY);
 		System.out.println(mKey);
@@ -125,7 +125,7 @@ public class DownloadServiceImpl implements DownloadService {
 		}
 		int total = 0;
 		String filePath = null;
-		String savePath = lOCAL_ADDR + FinalStrings.SEPARATOR + userName + FinalStrings.SEPARATOR + kEY
+		String savePath = lOCAL_ADDR + FinalStrings.SEPARATOR + userId + FinalStrings.SEPARATOR + kEY
 				+ FinalStrings.SEPARATOR;
 		File file = new File(savePath);
 		if (!file.exists()) {
