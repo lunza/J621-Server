@@ -40,3 +40,13 @@ Servers/Tomcat v8.0 Server at localhost-config/context.xml
 Servers/Tomcat v8.0 Server at localhost-config/server.xml
 Servers/Tomcat v8.0 Server at localhost-config/tomcat-users.xml
 Servers/Tomcat v8.0 Server at localhost-config/web.xml
+*.fdt
+*.fdx
+*.fdt
+*.frq
+*.fnm
+*.gen
+*.tis
+*.prx
+*.nrm
+*.nrm
