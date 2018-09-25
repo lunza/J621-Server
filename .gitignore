@@ -50,3 +50,4 @@ Servers/Tomcat v8.0 Server at localhost-config/web.xml
 *.prx
 *.nrm
 *.nrm
+/.recommenders/

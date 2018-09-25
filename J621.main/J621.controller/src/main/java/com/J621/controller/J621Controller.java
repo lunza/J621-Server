@@ -28,6 +28,7 @@ import com.J621.utils.JsonUtils;
 import com.J621.utils.SysUtils;
 import com.J621.utils.ZipUtils;
 import com.J621.vo.J621Image;
+import com.J621.vo.J621User;
 
 @Controller
 @RequestMapping("/J621/service")
@@ -37,6 +38,8 @@ public class J621Controller {
 
 	@Autowired
 	private DownloadService dlService;
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
 	@ResponseBody
@@ -50,8 +53,17 @@ public class J621Controller {
 		
 		SysUtils.deletePath(userId);
 		
+		J621User user = userService.getUserById(userId);
+		
+		
+		
 		
 		Map<String, Object> m = new HashMap<String, Object>();
+		if ((!user.getStatus().equals("0"))&&user.getPicCount()>=user.getMaxCount()) {
+			m.put("result", "可下载图片为0，请联系管理员扩充流量");
+			return JsonUtils.objectToJson(m);
+		}
+		
 		if (endIndex==null||endIndex.equals("")) {
 			m.put("result", "起始页不能为空");
 			return JsonUtils.objectToJson(m);
@@ -114,7 +126,7 @@ public class J621Controller {
 		List<String> HDImgUrlList = ThreadPool.getHDURLWithThreadPool(SimpleImgUrlList, thread_Pool_Size);
 		System.err.println("静态地址分析完毕,开始下载图片");
 		System.out.println(keyses);
-		List<J621Image> li = dlService.downloadPic(HDImgUrlList, localAddr, keyses, userId);
+		List<J621Image> li = dlService.downloadPic(HDImgUrlList, localAddr, keyses, user);
 		ThreadPool.getFileWithThreadPool(li, thread_Pool_Size);
 
 		String srcFile = localAddr + FinalStrings.SEPARATOR + userId + FinalStrings.SEPARATOR + keyses;
@@ -142,7 +154,6 @@ public class J621Controller {
 	}
 
 	@RequestMapping(value = "/downloadZipFile", method = RequestMethod.POST)
-	@ResponseBody
 	public void downloadZipFile(HttpServletResponse response,
 			@RequestParam(value = "filePath", required = true) String filePath
 			) {
@@ -170,7 +181,7 @@ public class J621Controller {
 			}
 			response.reset();
 			if (os.equals("windows")) {
-				response.setHeader("Content-Disposition", "attachment;filename=" + filePath.split(sep)[2]);
+				response.setHeader("Content-Disposition", "attachment;filename=" + filePath.split(sep)[3]);
 			} else {
 				response.setHeader("Content-Disposition", "attachment;filename=" + filePath.split(sep)[4]);
 			}

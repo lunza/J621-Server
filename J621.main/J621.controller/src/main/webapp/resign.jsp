@@ -112,6 +112,12 @@ body {
 				</div>
 			</div>
 			<div class="form-group">
+				<label class="control-label col-lg-1" for="phonenum">电话</label>
+				<div class="col-lg-5 col-md-6">
+					<input class="form-control" name="phonenum">
+				</div>
+			</div>
+			<div class="form-group">
 				<label class="control-label col-lg-1" for="sex">性别</label>
 				<div class="col-lg-5 col-md-6">
  

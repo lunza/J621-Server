@@ -11,7 +11,7 @@ public class FinalStrings {
 
 	public static final String os = System.getProperty("os.name");
 	
-	public static final String WINADDR = "E:\\pics";
+	public static final String WINADDR = "D:\\pics";
 	public static final String LINADDR = "/root/pics";
 
 	public static String getOS() {

@@ -65,11 +65,38 @@ public class JsonUtils {
 		return str.matches(regex);
 	}
 	
+	
+	
+	/**
+	 * 校验手机号
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static boolean validatePhone(String str) {
+		String regex = "^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$";
+
+		return str.matches(regex);
+
+	}
+	
+	/**
+	 * 校验邮箱
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static boolean validateEmail(String str) {
+		String regex = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
+
+		return str.matches(regex);
+
+	}
+	
 	public static void main(String[] args) {
-		String regex1 = "^[a-z0-9A-Z\u4e00-\u9fa5]+$";
-		String regex2 = "^[0-9]+$";
-		String str = "1";
-		System.out.println(str.matches(regex2));
+		
+		
+		System.out.println(validatePhone(""));
 	}
 
 

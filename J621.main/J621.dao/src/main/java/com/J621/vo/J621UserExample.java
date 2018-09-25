@@ -924,6 +924,66 @@ public class J621UserExample {
             addCriterion("pic_count not between", value1, value2, "picCount");
             return (Criteria) this;
         }
+
+        public Criteria andMaxCountIsNull() {
+            addCriterion("max_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountIsNotNull() {
+            addCriterion("max_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountEqualTo(Integer value) {
+            addCriterion("max_count =", value, "maxCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountNotEqualTo(Integer value) {
+            addCriterion("max_count <>", value, "maxCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountGreaterThan(Integer value) {
+            addCriterion("max_count >", value, "maxCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("max_count >=", value, "maxCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountLessThan(Integer value) {
+            addCriterion("max_count <", value, "maxCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountLessThanOrEqualTo(Integer value) {
+            addCriterion("max_count <=", value, "maxCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountIn(List<Integer> values) {
+            addCriterion("max_count in", values, "maxCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountNotIn(List<Integer> values) {
+            addCriterion("max_count not in", values, "maxCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountBetween(Integer value1, Integer value2) {
+            addCriterion("max_count between", value1, value2, "maxCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("max_count not between", value1, value2, "maxCount");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -1,4 +1,4 @@
-package com.j621.vo;
+package com.J621.vo;
 
 import java.util.Date;
 
@@ -26,6 +26,8 @@ public class J621User {
     private String status;
 
     private Integer picCount;
+
+    private Integer maxCount;
 
     public String getId() {
         return id;
@@ -121,5 +123,13 @@ public class J621User {
 
     public void setPicCount(Integer picCount) {
         this.picCount = picCount;
+    }
+
+    public Integer getMaxCount() {
+        return maxCount;
+    }
+
+    public void setMaxCount(Integer maxCount) {
+        this.maxCount = maxCount;
     }
 }

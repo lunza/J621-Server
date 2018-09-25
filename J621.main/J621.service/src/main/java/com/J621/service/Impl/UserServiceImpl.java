@@ -27,8 +27,8 @@ public class UserServiceImpl implements UserService {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String json = "";
 		J621UserExample example = new J621UserExample();
-		Criteria c = example.createCriteria();
-		c.andUsernameEqualTo(user.getUsername());
+		Criteria c1 = example.createCriteria();
+		c1.andUsernameEqualTo(user.getUsername());
 		
 		List<J621User> li = userMapper.selectByExample(example);
 		if(li!=null&&li.size()!=0) {
@@ -36,6 +36,19 @@ public class UserServiceImpl implements UserService {
 			json = JsonUtils.objectToJson(result);
 			return json;
 		}
+		
+		if(!user.getIp().equals("本地")) {
+			Criteria c2 = example.createCriteria();
+			c2.andIpEqualTo(user.getIp());
+			
+			li = userMapper.selectByExample(example);
+			if(li!=null&&li.size()!=0) {
+				result.put("result", "你不能重复注册！");
+				json = JsonUtils.objectToJson(result);
+				return json;
+			}
+		}
+		
 		userMapper.insert(user);
 		result.put("result", "注册成功");
 		json = JsonUtils.objectToJson(result);
@@ -86,5 +99,6 @@ public class UserServiceImpl implements UserService {
 		J621User user = userMapper.selectByPrimaryKey(userId);
 		return user;
 	}
+	
 
 }

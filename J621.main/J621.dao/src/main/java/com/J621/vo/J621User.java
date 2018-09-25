@@ -27,6 +27,8 @@ public class J621User {
 
     private Integer picCount;
 
+    private Integer maxCount;
+
     public String getId() {
         return id;
     }
@@ -121,5 +123,13 @@ public class J621User {
 
     public void setPicCount(Integer picCount) {
         this.picCount = picCount;
+    }
+
+    public Integer getMaxCount() {
+        return maxCount;
+    }
+
+    public void setMaxCount(Integer maxCount) {
+        this.maxCount = maxCount;
     }
 }

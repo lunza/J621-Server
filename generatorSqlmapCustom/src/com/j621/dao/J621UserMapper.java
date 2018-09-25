@@ -1,7 +1,7 @@
-package com.j621.dao;
+package com.J621.dao;
 
-import com.j621.vo.J621User;
-import com.j621.vo.J621UserExample;
+import com.J621.vo.J621User;
+import com.J621.vo.J621UserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

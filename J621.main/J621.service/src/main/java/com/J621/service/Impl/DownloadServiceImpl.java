@@ -33,7 +33,10 @@ public class DownloadServiceImpl implements DownloadService {
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	@Autowired
-	private J621ImageMapper mapper;
+	private J621ImageMapper imageMapper;
+	
+	@Autowired
+	private J621UserMapper userMapper;
 
 	@Override
 	public List<String> getIndexUrlList(int startIndex, int endIndex, String kEY) {
@@ -112,22 +115,22 @@ public class DownloadServiceImpl implements DownloadService {
 	}
 
 	@Override
-	public List<J621Image> downloadPic(List<String> hDImgUrlList, String lOCAL_ADDR, String kEY, String userId) {
+	public List<J621Image> downloadPic(List<String> hDImgUrlList, String lOCAL_ADDR, String kEY, J621User user) {
 
 		String mKey = MD5Util.encrypt(kEY);
 		System.out.println(mKey);
-		Map<String, J621Image> imageMap = mapper.getAllImagesByKey(mKey, userId);
+		Map<String, J621Image> imageMap = imageMapper.getAllImagesByKey(mKey, user.getId());
 
-		int MaxFileName = mapper.getMxFileName(mKey, userId);
+		int MaxFileName = imageMapper.getMxFileName(mKey, user.getId());
 
 		List<J621Image> li = new ArrayList<J621Image>();
 		int count = 1;
-		if (MaxFileName != 1) {
+		if (MaxFileName != 0) {
 			count = MaxFileName + 1;
 		}
-		int total = 0;
+		int total = user.getPicCount();
 		String filePath = null;
-		String savePath = lOCAL_ADDR + FinalStrings.SEPARATOR + userId + FinalStrings.SEPARATOR + kEY
+		String savePath = lOCAL_ADDR + FinalStrings.SEPARATOR + user.getId() + FinalStrings.SEPARATOR + kEY
 				+ FinalStrings.SEPARATOR;
 		File file = new File(savePath);
 		if (!file.exists()) {
@@ -159,9 +162,14 @@ public class DownloadServiceImpl implements DownloadService {
 			li.add(image);
 			count++;
 			total++;
+			if((!user.getStatus().equals("0"))&&total>=user.getMaxCount()) {
+				break;
+			}
 		}
 		// ThreadPool.getFileWithThreadPool(urlLocation, filePath, 4, savePath);
-		System.err.println("所有图片扫描完毕!本次共下载" + total + "张图片");
+		user.setPicCount(total);
+		userMapper.updateByPrimaryKey(user);
+		System.err.println("所有图片扫描完毕!本次共下载" + count + "张图片");
 		System.err.println("正在渲染请稍等");
 		return li;
 	}
@@ -173,7 +181,7 @@ public class DownloadServiceImpl implements DownloadService {
 					j621Image.getUrl().substring(FinalStrings.E621_STATIC.length(), j621Image.getUrl().length()));
 			j621Image.setFilePath(localAddr);
 			j621Image.setUserId(userId);
-			mapper.insert(j621Image);
+			imageMapper.insert(j621Image);
 		}
 		System.out.println("保存完毕");
 	}

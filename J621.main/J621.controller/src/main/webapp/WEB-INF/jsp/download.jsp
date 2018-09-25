@@ -13,6 +13,12 @@
 <%
 	String isOver = request.getSession().getAttribute("isOver").toString();
 %>
+<%
+	String picCount = request.getSession().getAttribute("picCount").toString();
+%>
+<%
+	String maxCount = request.getSession().getAttribute("maxCount").toString();
+%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -63,13 +69,13 @@ body {
 					document.write("<input type='hidden' name='filePath' value='"+ json.srcFile +"'/>");  
 					document.write("</form>");  
 					document.form1.submit();
-
+					
 					}else{
 						layer.closeAll();
 						var index = layer.msg(json.result, {
 							icon : 2,
 							shade : 0.01,
-							time : 1000
+							time : 2000
 						});
 					}
 				},
@@ -77,7 +83,7 @@ body {
 					var index = layer.msg(json.result, {
 						icon : 1,
 						shade : 0.01,
-						time : 1000
+						time : 2000
 					});
 					layer.closeAll();
 				}
@@ -88,9 +94,15 @@ body {
 
 </head>
 <body>
-	<div id="webName" align="right" style="margin-top: 0px">
-		欢迎<%=webName%>!
-	</div>
+<div class="nav navbar-nav navbar-left hidden-sm">
+    <h5>当前已下载<span class="label label-danger"><%=picCount%></span>张图片</h5><br>
+     <h5>共可下载<span class="label label-danger"><%=maxCount%></span>张图片</h5>
+</div>
+<div class="nav navbar-nav navbar-right hidden-sm">
+    <h5>欢迎<%=webName%>!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+</div>
+
+	
 	<form id="myForm" class="form-horizontal">
 		<div class="container">
 

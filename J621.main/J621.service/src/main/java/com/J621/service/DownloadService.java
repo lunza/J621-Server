@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.J621.vo.J621Image;
+import com.J621.vo.J621User;
 
 public interface DownloadService {
 
@@ -13,7 +14,7 @@ public interface DownloadService {
 
 	public List<String> getHDImgUrlList(List<String> simpleImgUrlList, String kEY) throws IOException;
 	
-	public List<J621Image> downloadPic(List<String> hDImgUrlList, String lOCAL_ADDR, String kEY,String userId);
+	public List<J621Image> downloadPic(List<String> hDImgUrlList, String lOCAL_ADDR, String kEY,J621User user);
 
 	public void saveImg(List<J621Image> li,String localAddr, String userId);
 

@@ -37,6 +37,7 @@ public class UserController {
 			@RequestParam(value = "password2", required = true) String password2,
 			@RequestParam(value = "name", required = true) String name,
 			@RequestParam(value = "email", required = true) String email,
+			@RequestParam(value = "phonenum", required = true) String phonenum,
 			@RequestParam(value = "sex", required = true) String sex,
 			HttpServletRequest request) {
 		J621User user = new J621User();
@@ -74,11 +75,24 @@ public class UserController {
 			user.setSalt(FinalStrings.SALT.toString());
 		}
 		
+		if (phonenum!=null&&(!JsonUtils.validateNum(phonenum))) {
+			m.put("result", "手机号不正确");
+			return JsonUtils.objectToJson(m);
+		}
+		
+		if (email!=null&&(!JsonUtils.validateNum(email))) {
+			m.put("result", "邮箱不正确");
+			return JsonUtils.objectToJson(m);
+		}
+		
 		
 		user.setCreateDate(new Date());
 		user.setName(name);
 		user.setEmail(email);
 		user.setSex(sex);
+		user.setPicCount(0);
+		user.setMaxCount(100);
+		user.setStatus("1");
 		String ip = IPUtil.getIpAddr(request);
 		user.setIp(ip);
 		String result =  userService.resign(user);
@@ -118,6 +132,8 @@ public class UserController {
 		request.getSession().setAttribute("webName",user.getName());
 		request.getSession().setAttribute("userId",user.getId());
 		request.getSession().setAttribute("isOver","");
+		request.getSession().setAttribute("picCount",user.getPicCount());
+		request.getSession().setAttribute("maxCount",user.getMaxCount());
 		return "download";
 		
 	}
