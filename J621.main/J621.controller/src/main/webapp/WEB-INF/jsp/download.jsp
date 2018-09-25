@@ -128,7 +128,7 @@ body {
 			<div class="row form-group">
 				<label class="control-label col-lg-1" for="keyses">关键字</label>
 				<div class="col-lg-5 col-md-6">
-					<input class="form-control" name="keyses" value="cuntboy"
+					<input class="form-control" name="keyses" value="shaorune"
 						type="text">
 				</div>
 			</div>
@@ -148,7 +148,7 @@ body {
 				</div>
 			</div>
 			<button class="btn btn-lg btn-primary btn-block" type="button"
-				id='submitBtn'>色图来</button>
+				id='submitBtn'>开始下载</button>
 				
 			<label class="control-label" style="color:red">注： ① 每个账号下载过的图片不会再次下载</label><br>
 			<label class="control-label" style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;② 当起始页等于结束页时 下载一页图片</label><br>

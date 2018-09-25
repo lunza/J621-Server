@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -74,24 +75,26 @@ public class UserController {
 			user.setPassword(MD5Util.encrypt(password));
 			user.setSalt(FinalStrings.SALT.toString());
 		}
-		
-		if (phonenum!=null&&(!JsonUtils.validateNum(phonenum))) {
+		if (phonenum!=null&&!phonenum.equals("")&&(!JsonUtils.validateNum(phonenum))) {
 			m.put("result", "手机号不正确");
 			return JsonUtils.objectToJson(m);
 		}
 		
-		if (email!=null&&(!JsonUtils.validateNum(email))) {
+		if (email!=null&&!phonenum.equals("")&&(!JsonUtils.validateNum(email))) {
 			m.put("result", "邮箱不正确");
 			return JsonUtils.objectToJson(m);
 		}
 		
 		
 		user.setCreateDate(new Date());
+		if(name==null||name.equals("")) {
+			name="游客";
+		}
 		user.setName(name);
 		user.setEmail(email);
 		user.setSex(sex);
 		user.setPicCount(0);
-		user.setMaxCount(100);
+		user.setMaxCount(50);
 		user.setStatus("1");
 		String ip = IPUtil.getIpAddr(request);
 		user.setIp(ip);
@@ -125,15 +128,23 @@ public class UserController {
 	}
 	@RequestMapping(value = "/dologin", method = RequestMethod.GET)
 	//@ResponseBody
-	public String dologin(HttpServletRequest request) throws IOException {
+	public String dologin(HttpServletRequest request,HttpSession httpSession) throws IOException {
 		String userId = request.getParameter("userId");  
+		if(userId == null||userId.equals("")) {
+			return "error";
+		}
 		System.out.println(userId+"**");
 		J621User user = userService.getUserById(userId);
-		request.getSession().setAttribute("webName",user.getName());
-		request.getSession().setAttribute("userId",user.getId());
-		request.getSession().setAttribute("isOver","");
-		request.getSession().setAttribute("picCount",user.getPicCount());
-		request.getSession().setAttribute("maxCount",user.getMaxCount());
+		if(user == null) {
+			return "error";
+		}
+		httpSession.setAttribute("webName",user.getName());
+		httpSession.setAttribute("userId",user.getId());
+		httpSession.setAttribute("user",user);
+		httpSession.setAttribute("isOver","");
+		httpSession.setAttribute("picCount",user.getPicCount());
+		httpSession.setAttribute("maxCount",user.getMaxCount());
+		request.getRemoteAddr();
 		return "download";
 		
 	}

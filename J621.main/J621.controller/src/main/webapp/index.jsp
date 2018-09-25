@@ -28,7 +28,7 @@
 
 		<INPUT name="pclog" type="button"
 			class="button button-glow button-rounded button-raised button-primary"
-			value="注册" onClick="location.href='resign.jsp'" disabled> <br> <br> <br> <INPUT
+			value="注册" onClick="location.href='resign.jsp'" > <br> <br> <br> <INPUT
 			name="pclog" type="button"
 			class="button button-glow button-rounded button-raised button-primary"
 			value="登录" onClick="location.href='login.jsp'"> <br>

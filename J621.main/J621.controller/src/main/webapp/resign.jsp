@@ -77,7 +77,7 @@ body {
 			</div>
 
 			<div class="form-group">
-				<label class="control-label col-lg-1" for="username">用户名</label>
+				<label class="control-label col-lg-1" for="username">用户名</label><span style="color:red" >*</span>
 				<div class="col-lg-5 col-md-6">
 					<input class="form-control" name="username" type="text">
 
@@ -85,14 +85,14 @@ body {
 			</div>
 
 			<div class="form-group">
-				<label class="control-label col-lg-1" for="password">密码</label>
+				<label class="control-label col-lg-1" for="password">密码</label><span style="color:red" >*</span>
 				<div class="col-lg-5 col-md-6">
 					<input class="form-control" name="password" type="text">
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label class="control-label col-lg-1" for="password2">确认密码</label>
+				<label class="control-label col-lg-1" for="password2">确认密码</label><span style="color:red" >*</span>
 				<div class="col-lg-5 col-md-6">
 					<input class="form-control" name="password2" type="text">
 				</div>
