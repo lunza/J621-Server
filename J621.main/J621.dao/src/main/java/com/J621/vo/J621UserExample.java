@@ -655,6 +655,76 @@ public class J621UserExample {
             return (Criteria) this;
         }
 
+        public Criteria andPhonenumIsNull() {
+            addCriterion("phonenum is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhonenumIsNotNull() {
+            addCriterion("phonenum is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhonenumEqualTo(String value) {
+            addCriterion("phonenum =", value, "phonenum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhonenumNotEqualTo(String value) {
+            addCriterion("phonenum <>", value, "phonenum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhonenumGreaterThan(String value) {
+            addCriterion("phonenum >", value, "phonenum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhonenumGreaterThanOrEqualTo(String value) {
+            addCriterion("phonenum >=", value, "phonenum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhonenumLessThan(String value) {
+            addCriterion("phonenum <", value, "phonenum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhonenumLessThanOrEqualTo(String value) {
+            addCriterion("phonenum <=", value, "phonenum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhonenumLike(String value) {
+            addCriterion("phonenum like", value, "phonenum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhonenumNotLike(String value) {
+            addCriterion("phonenum not like", value, "phonenum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhonenumIn(List<String> values) {
+            addCriterion("phonenum in", values, "phonenum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhonenumNotIn(List<String> values) {
+            addCriterion("phonenum not in", values, "phonenum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhonenumBetween(String value1, String value2) {
+            addCriterion("phonenum between", value1, value2, "phonenum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhonenumNotBetween(String value1, String value2) {
+            addCriterion("phonenum not between", value1, value2, "phonenum");
+            return (Criteria) this;
+        }
+
         public Criteria andIpIsNull() {
             addCriterion("ip is null");
             return (Criteria) this;
@@ -722,6 +792,136 @@ public class J621UserExample {
 
         public Criteria andIpNotBetween(String value1, String value2) {
             addCriterion("ip not between", value1, value2, "ip");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIsNull() {
+            addCriterion("status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIsNotNull() {
+            addCriterion("status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusEqualTo(String value) {
+            addCriterion("status =", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotEqualTo(String value) {
+            addCriterion("status <>", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThan(String value) {
+            addCriterion("status >", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("status >=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThan(String value) {
+            addCriterion("status <", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThanOrEqualTo(String value) {
+            addCriterion("status <=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLike(String value) {
+            addCriterion("status like", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotLike(String value) {
+            addCriterion("status not like", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIn(List<String> values) {
+            addCriterion("status in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotIn(List<String> values) {
+            addCriterion("status not in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusBetween(String value1, String value2) {
+            addCriterion("status between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotBetween(String value1, String value2) {
+            addCriterion("status not between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicCountIsNull() {
+            addCriterion("pic_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicCountIsNotNull() {
+            addCriterion("pic_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicCountEqualTo(Integer value) {
+            addCriterion("pic_count =", value, "picCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicCountNotEqualTo(Integer value) {
+            addCriterion("pic_count <>", value, "picCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicCountGreaterThan(Integer value) {
+            addCriterion("pic_count >", value, "picCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("pic_count >=", value, "picCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicCountLessThan(Integer value) {
+            addCriterion("pic_count <", value, "picCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicCountLessThanOrEqualTo(Integer value) {
+            addCriterion("pic_count <=", value, "picCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicCountIn(List<Integer> values) {
+            addCriterion("pic_count in", values, "picCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicCountNotIn(List<Integer> values) {
+            addCriterion("pic_count not in", values, "picCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicCountBetween(Integer value1, Integer value2) {
+            addCriterion("pic_count between", value1, value2, "picCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("pic_count not between", value1, value2, "picCount");
             return (Criteria) this;
         }
     }

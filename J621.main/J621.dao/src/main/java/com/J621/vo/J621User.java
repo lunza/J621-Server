@@ -19,7 +19,13 @@ public class J621User {
 
     private String email;
 
+    private String phonenum;
+
     private String ip;
+
+    private String status;
+
+    private Integer picCount;
 
     public String getId() {
         return id;
@@ -85,11 +91,35 @@ public class J621User {
         this.email = email == null ? null : email.trim();
     }
 
+    public String getPhonenum() {
+        return phonenum;
+    }
+
+    public void setPhonenum(String phonenum) {
+        this.phonenum = phonenum == null ? null : phonenum.trim();
+    }
+
     public String getIp() {
         return ip;
     }
 
     public void setIp(String ip) {
         this.ip = ip == null ? null : ip.trim();
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
+    }
+
+    public Integer getPicCount() {
+        return picCount;
+    }
+
+    public void setPicCount(Integer picCount) {
+        this.picCount = picCount;
     }
 }
